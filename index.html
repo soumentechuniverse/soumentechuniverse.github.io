@@ -1,67 +1,765 @@
-                correct: 1
-            },
-            {
-                question: "3. What is the primary objective of Ethical Hacking?",
-                options: ["To steal data", "To identify vulnerabilities before malicious hackers do", "To crash servers", "To bypass firewalls for fun"],
-                correct: 1
-            },
-            {
-                question: "4. Which HTML tag is used to display a picture?",
-                options: ["<image>", "<pic>", "<img>", "<src>"],
-                correct: 2
-            }
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-
-        function loadQuiz() {
-            const q = quizData[currentQuestion];
-            document.getElementById('question').innerText = q.question;
-            
-            const optionsDiv = document.getElementById('options');
-            optionsDiv.innerHTML = ""; // Clear old options
-            
-            q.options.forEach((opt, index) => {
-                const btn = document.createElement('button');
-                btn.className = "btn";
-                btn.innerText = opt;
-                btn.onclick = () => selectAnswer(index);
-                optionsDiv.appendChild(btn);
-            });
-            document.getElementById('next-btn').style.display = "none";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumen Tech Universe - Premium Cyber Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #030712;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --bg-card: #0f172a;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.3);
+            --secondary: #818cf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(56, 189, 248, 0.15);
         }
 
-        function selectAnswer(index) {
-            const correctIndex = quizData[currentQuestion].correct;
-            const buttons = document.getElementById('options').children;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
+                radial-gradient(circle at 85% 85%, rgba(129, 140, 248, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* --- Glassmorphism Card Utility --- */
+        .glass-card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- Glowing Buttons --- */
+        .btn-glow {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.5);
+        }
+
+        /* --- VIEW MANAGEMENT --- */
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: smoothStep 0.5s ease-out; }
+
+        @keyframes smoothStep {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- PORTAL / LOGIN SCREEN --- */
+        .portal-wrapper {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .portal-card {
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .portal-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(2, 6, 23, 0.7);
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* --- DASHBOARD VIEW --- */
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .user-meta { display: flex; align-items: center; gap: 15px; }
+        .avatar {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .stats-badge {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-badge i { color: #f59e0b; }
+
+        /* --- 3D INTERACTIVE GRID --- */
+        .grid-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .premium-card {
+            background: #0f172a;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.03);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .premium-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.15);
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(3, 7, 18, 0.8);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            border: 1px solid var(--primary-glow);
+        }
+
+        .card-body { padding: 25px; }
+        .card-body h3 { font-size: 1.25rem; margin-bottom: 10px; color: #fff; }
+        .card-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+
+        /* --- COURSE CONTENT PLATFORM --- */
+        .workspace-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .back-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+        .back-nav:hover { color: var(--primary); }
+
+        .article-view {
+            padding: 35px;
+            min-height: 400px;
+        }
+
+        .article-view h2 { font-size: 2rem; color: #fff; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 15px; }
+        .article-view h3 { color: var(--primary); margin: 25px 0 12px 0; }
+        .article-view p { color: #e2e8f0; font-size: 1.05rem; line-height: 1.7; margin-bottom: 15px; }
+
+        /* Simulated Code Box */
+        .code-box {
+            background: #020617;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #34d399;
+            margin: 20px 0;
+            border: 1px solid #1e293b;
+            position: relative;
+            overflow-x: auto;
+        }
+        .code-box::before {
+            content: "• • •";
+            position: absolute;
+            top: 5px;
+            left: 15px;
+            color: #64748b;
+            font-size: 1.2rem;
+        }
+        .code-box code { display: block; margin-top: 15px; white-space: pre; }
+
+        /* --- MULTI-QUESTION QUIZ SYSTEM --- */
+        .premium-quiz {
+            margin-top: 40px;
+            padding: 35px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .quiz-header-status {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .quiz-opt-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .quiz-opt-btn {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid #1e293b;
+            padding: 16px 20px;
+            border-radius: 12px;
+            color: var(--text-main);
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .quiz-opt-btn:hover:not(:disabled) {
+            border-color: var(--secondary);
+            background: rgba(129, 140, 248, 0.05);
+        }
+
+        .quiz-opt-btn.correct-ans { background: rgba(16, 185, 129, 0.15) !important; border-color: var(--success) !important; color: #10b981; font-weight: bold; }
+        .quiz-opt-btn.wrong-ans { background: rgba(239, 68, 68, 0.15) !important; border-color: var(--danger) !important; color: #ef4444; }
+
+        /* Certificate / Badge box */
+        .badge-unlock {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.05));
+            border: 1px dashed #f59e0b;
+            border-radius: 16px;
+            margin-top: 20px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { box-shadow: 0 0 10px rgba(245, 158, 11, 0.1); }
+            to { box-shadow: 0 0 25px rgba(245, 158, 11, 0.3); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <section id="portal-view" class="view-section active">
+            <div class="portal-wrapper">
+                <div class="portal-card glass-card">
+                    <div class="portal-logo">SOUMEN TECH</div>
+                    <p style="color: var(--text-muted); margin-bottom: 35px; font-weight: 600; font-size: 0.95rem;">UNIVERSE MANAGEMENT PORTAL</p>
+                    
+                    <form id="authForm" onsubmit="executePortalAuth(event)">
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-user"></i> Full Name</label>
+                            <input type="text" id="username" required placeholder="Enter student name">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-map-location-dot"></i> District</label>
+                            <input type="text" id="district" required placeholder="E.g., Hooghly, Kolkata">
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fa-solid fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="userphone" required placeholder="10-digit mobile line">
+                        </div>
+                        <div class="input-group" id="otp-wrapper" style="display: none;">
+                            <label style="color: var(--primary);"><i class="fa-solid fa-key"></i> Automated Smart OTP</label>
+                            <input type="text" id="otpcode" placeholder="Enter verified token">
+                        </div>
+                        
+                        <button type="submit" id="auth-btn" class="btn-glow" style="width: 100%; justify-content: center; margin-top: 10px;">
+                            Initialize Access
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard-view" class="view-section">
+            <div class="dash-header glass-card">
+                <div class="user-meta">
+                    <div class="avatar" id="avatar-initial">S</div>
+                    <div>
+                        <h2 style="font-size: 1.3rem;" id="welcome-name">Welcome, Student</h2>
+                        <p id="welcome-district" style="font-size: 0.85rem; color: var(--text-muted);"><i class="fa-solid fa-location-dot"></i> Location Status</p>
+                    </div>
+                </div>
+                <div class="stats-badge">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span id="score-counter" style="font-weight: 700;">0 XP</span>
+                </div>
+            </div>
+
+            <h2 class="grid-title">Available Deep Dive Matrix</h2>
             
-            // Disable all buttons
-            for(let i=0; i<buttons.length; i++) {
-                buttons[i].disabled = true;
-                if(i === correctIndex) {
-                    buttons[i].style.background = "#10b981"; // Green for correct
-                } else if(i === index && index !== correctIndex) {
-                    buttons[i].style.background = "#ef4444"; // Red for wrong
+            <div class="course-grid" id="matrix-container">
+                </div>
+        </section>
+
+        <section id="workspace-view" class="view-section">
+            <div class="back-nav" onclick="navigateToDashboard()">
+                <i class="fa-solid fa-arrow-left-long"></i> Return to Learning Matrix
+            </div>
+
+            <div class="workspace-layout">
+                <main class="article-view glass-card">
+                    <div id="article-payload">
+                        </div>
+
+                    <div class="premium-quiz glass-card" id="quiz-block">
+                        <div class="quiz-header-status">
+                            <span id="quiz-question-number">Question 1 of 3</span>
+                            <span id="quiz-accumulated-score" style="color: var(--primary);">Current Module XP: 0</span>
+                        </div>
+                        <h3 id="quiz-question-text" style="margin: 0 0 15px 0; color: #fff;">Question content loaded here?</h3>
+                        <div class="quiz-opt-grid" id="quiz-options-box">
+                            </div>
+                        <button id="quiz-next-btn" class="btn-glow" style="margin-top: 20px; display: none;" onclick="advanceQuizQuestion()">
+                            Next Matrix Point <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <div id="module-completion-box" style="display: none;"></div>
+                    </div>
+                </main>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- GLOBAL STATE ---
+        let currentStudent = { name: "", district: "", points: 0 };
+        let currentActiveCourseId = "";
+        let currentQuizIndex = 0;
+        let activeQuizScore = 0;
+        let authStep = 1;
+        const systemSecureOTP = "9988";
+
+        // --- MATRIX DATABASE ---
+        const matrixDatabase = {
+            basics: {
+                title: "Computer Architecture & Core OS Foundations",
+                badge: "Core Basics",
+                img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80",
+                desc: "Complete operational mechanics from binary logic gates up to modern kernel memory structures.",
+                htmlContent: `
+                    <h2>Computer Architecture to Advanced Management</h2>
+                    <p>Understanding compute operations requires breaking down logic pipelines to the transistor layer. Central Processing Units execute structural machine instructions via high-speed registers managed directly by crystal oscillators.</p>
+                    <h3>Kernel Structures & Process Subsystems</h3>
+                    <p>The operating system acts as the hardware abstraction framework. The microkernel or monolithic architecture governs hardware interrupts, memory pagination profiles, virtual mapping tables, and hardware thread multiplexing profiles across physical processing layers.</p>
+                `,
+                quizzes: [
+                    { q: "Where does the CPU store immediate, high-speed execution variables?", opts: ["SSD Storage", "Internal Registers", "L3 Cache Pools", "Virtual Paging Fields"], ans: 1 },
+                    { q: "What structural method prevents simultaneous thread conflict within OS kernels?", opts: ["Data Interleaving", "Mutex Semaphore Blocks", "Dynamic Allocation Arrays", "Kernel Virtualization Pools"], ans: 1 },
+                    { q: "What interface acts as the low-level boot sequencer directly initialized by system hardware?", opts: ["Command Line Terminal", "System Registry Tree", "BIOS/UEFI Firmware Layer", "Hypervisor Architecture"], ans: 2 }
+                ]
+            },
+            networking: {
+                title: "Enterprise Network Architectures & CCNA Topology",
+                badge: "Advanced Network",
+                img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80",
+                desc: "Deep packet analysis, routing paradigms, dynamic switching operations, and enterprise infrastructure design.",
+                htmlContent: `
+                    <h2>Advanced Network Operations (CCNA Enterprise Level)</h2>
+                    <p>Enterprise data links demand precise architecture optimization. Data encapsulation follows structural criteria through the 7-Layer OSI or 4-Layer TCP/IP protocol trees, ensuring integrity across heterogeneous hardware systems.</p>
+                    <h3>Subnet Calculation & Packet Mechanics</h3>
+                    <p>Network separation avoids large-scale data collision zones. Utilizing Variable Length Subnet Masking algorithms, networks scale optimally while maintaining secure border gateway separation.</p>
+                `,
+                quizzes: [
+                    { q: "Which structural OSI layer maps incoming segments to correct protocol socket addresses?", opts: ["Data Link Layer", "Network Router Layer", "Transport Layer", "Presentation Interface Layer"], ans: 2 },
+                    { q: "What structural protocol maps dynamic network IP paths back down to static physical MAC hardware addresses?", opts: ["DNS Translation", "ARP Mapping Sequence", "DHCP Allocation Scheme", "ICMP Diagnostic Matrix"], ans: 1 },
+                    { q: "What routing convergence protocol functions natively via link-state tracking states?", opts: ["BGP Protocol Vector", "RIP Hop Counter", "OSPF Routing Topology", "Static Matrix Paths"], ans: 2 }
+                ]
+            },
+            python: {
+                title: "Python Pro Execution: Algorithm Design & Machine Learning",
+                badge: "Python Core",
+                img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+                desc: "Advanced logic modeling, thread isolation, algorithm structures, and dynamic computational pipelines.",
+                htmlContent: `
+                    <h2>Python Language Operations & Memory Frameworks</h2>
+                    <p>Python utilizes high-level object references inside a clean, performance-optimized execution engine. Variable states resolve dynamically while retaining structural memory references handled natively by integrated garbage collectors.</p>
+                    <h3>Advanced Execution Mechanics</h3>
+                    <div class="code-box"><code># Multi-threaded Computational Engine Simulation
+import threading
+
+def compute_matrix_node(node_id):
+    print(f"Executing Matrix Calculation Layer: {node_id}")
+
+threads = [threading.Thread(target=compute_matrix_node, args=(i,)) for i in range(5)]
+for t in threads: t.start()</code></div>
+                `,
+                quizzes: [
+                    { q: "How does Python optimize memory references for identical, small primitive integer structures?", opts: ["Dynamic Collection Cycles", "Integer Interning Mechanisms", "Garbage Deallocation Hooks", "Virtual Heap Swapping"], ans: 1 },
+                    { q: "Which core structure allows Python functions to maintain outer state scope parameters when executed remotely?", opts: ["Functional Decorators", "Lexical Closures", "Global Context Vectors", "Static Pointer Arrays"], ans: 1 },
+                    { q: "What interface allows direct binding execution of native C execution assets within Python environments?", opts: ["PyBind Matrix Core", "ctypes / Foreign Function Interface", "Subprocess Execution Engine", "Virtual Shell Bridging"], ans: 1 }
+                ]
+            },
+            java: {
+                title: "Java Full-Stack Architecture: Enterprise OOP Systems",
+                badge: "Java Expert",
+                img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80",
+                desc: "JVM virtualization profiles, multithreading control matrices, architectural patterns, and structural scale engineering.",
+                htmlContent: `
+                    <h2>Enterprise Java Architecture & Virtual Machines (JVM)</h2>
+                    <p>Java compiles code blueprints down into target bytecode run inside cross-compatible Java Virtual Machines. High-performance Just-In-Time (JIT) compilation optimizing pipelines transform static code structures into high-speed native system assets.</p>
+                    <h3>Concurrency & Memory Separation</h3>
+                    <div class="code-box"><code>// Thread-Safe Singleton Blueprint Example
+public class SecurityMatrix {
+    private static volatile SecurityMatrix instance;
+    public static SecurityMatrix getInstance() {
+        if (instance == null) {
+            synchronized (SecurityMatrix.class) {
+                if (instance == null) instance = new SecurityMatrix();
+            }
+        }
+        return instance;
+    }
+}</code></div>
+                `,
+                quizzes: [
+                    { q: "What structural area inside JVM memory pools houses shared class-level configurations and metadata structures?", opts: ["Thread Stack Allocation", "Dynamic Execution Heap", "Metaspace Engine Allocation", "Local Variable Storage Pools"], ans: 2 },
+                    { q: "What specific parameter keyword prevents structural thread memory caching values from falling out of synchronization sync states?", opts: ["synchronized", "volatile", "transient", "final block structural"], ans: 1 },
+                    { q: "Which structural design pattern protects memory generation footprints by recycling reusable static configuration states?", opts: ["Observer Interface Matrix", "Flyweight State Engine", "Factory Blueprint Builder", "Proxy Security Envelope"], ans: 1 }
+                ]
+            },
+            hacking: {
+                title: "Ethical Hacking Operations & Cyber Security Defense Matrix",
+                badge: "Security Pro",
+                img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+                desc: "Penetration testing vectors, advanced perimeter enumeration, buffer overflow dynamics, and network defense architectures.",
+                htmlContent: `
+                    <h2>Advanced Penetration Testing & Defensive Security Frameworks</h2>
+                    <p>Cyber operations rely on deep structure enumeration. Security administrators proactively evaluate endpoint attack surfaces by dissecting inbound payload protocols, analyzing firmware dependencies, and verifying active cryptographic boundaries.</p>
+                    <h3>Exploit Mitigation & Threat Management</h3>
+                    <p>Modern endpoint defenses implement dynamic Address Space Layout Randomization (ASLR) protocols coupled with continuous network telemetry inspection, nullifying volatile exploit vectors before injection operations execute.</p>
+                `,
+                quizzes: [
+                    { q: "What specific vulnerability pattern involves overwriting execution return pointers to step outside intended software scope lines?", opts: ["Cross-Site Scripting Injection", "Buffer Overflow Exploit Vector", "SQL Command Bypass Sequence", "Directory Traversal Attack Profile"], ans: 1 },
+                    { q: "What configuration method establishes secure, encrypted communication bridges over untrusted infrastructure networks?", opts: ["Symmetric Token Hashing", "IPsec Tunneling Implementations", "Dynamic MAC Isolation Matrices", "Border Gateway Access Controls"], ans: 1 },
+                    { q: "Which offensive testing method evaluates software vulnerabilities by injecting large streams of random malformed inputs?", opts: ["Static Analysis Mapping", "Fuzzing Automation Execution", "Cryptographic Salting Verification", "Heuristic Signature Scanning"], ans: 1 }
+                ]
+            },
+            web: {
+                title: "Modern Web Engineering: High-Performance Architecture",
+                badge: "Web Dev Elite",
+                img: "https://images.unsplash.com/photo-1547082299-de196ea013d6?auto=format&fit=crop&w=600&q=80",
+                desc: "High-performance interface rendering, asynchronous event cycles, DOM rendering optimization, and modern security protocols.",
+                htmlContent: `
+                    <h2>Full-Stack Interface Architecture & Engine Optimization</h2>
+                    <p>Modern web engineering balances low-latency visual distribution with robust background asset handling. Client interfaces leverage concurrent rendering architectures, minimizing processing bottlenecks across device configurations.</p>
+                    <h3>Asynchronous Pipeline Execution</h3>
+                    <div class="code-box"><code>// Concurrent Asset Processing Engine
+async function ingestNetworkData(endpointUri) {
+    try {
+        const streamResponse = await fetch(endpointUri);
+        const structurePayload = await streamResponse.json();
+        renderInterfaceElements(structurePayload);
+    } catch (pipelineFault) {
+        console.error("Critical Stream Fault Handled:", pipelineFault);
+    }
+}</code></div>
+                `,
+                quizzes: [
+                    { q: "Which browser subsystem schedules and coordinates asynchronous task executions outside the primary execution thread?", opts: ["JavaScript Call Stack Unit", "Web API Async Execution Loop", "DOM Layout Configuration Tree", "V8 Internal Memory Heap"], ans: 1 },
+                    { q: "What browser security policy restricts script operations from accessing cross-origin host data resources?", opts: ["Content Delivery Protection Schemes", "Same-Origin Policy Controls", "CORS Preflight Matrix Configurations", "Strict Transport Security Directives"], ans: 1 },
+                    { q: "What rendering strategy pre-compiles interface layouts into static structures before network distribution occurs?", opts: ["Dynamic Client Optimization", "Server-Side Rendering (SSR)", "Just-In-Time Virtual Layout Processing", "Lazy Load State Mapping"], ans: 1 }
+                ]
+            }
+        };
+
+        // --- AUTHENTICATION ENGINE ---
+        function executePortalAuth(e) {
+            e.preventDefault();
+            const name = document.getElementById('username').value.trim();
+            const dist = document.getElementById('district').value.trim();
+            const phone = document.getElementById('userphone').value.trim();
+
+            if (!name || !dist || phone.length < 10) {
+                alert("Critical Error: Please enter valid credentials.");
+                return;
+            }
+
+            if (authStep === 1) {
+                document.getElementById('otp-wrapper').style.display = "block";
+                document.getElementById('auth-btn').innerText = "Verify Access Code";
+                alert(`[SECURE APP ALERTS] Verification Token dispatched to node. \n\n🔒 System Access OTP: ${systemSecureOTP}`);
+                authStep = 2;
+            } else {
+                const enteredOTP = document.getElementById('otpcode').value.trim();
+                if (enteredOTP === systemSecureOTP) {
+                    currentStudent.name = name;
+                    currentStudent.district = dist;
+                    initializeStudentDashboard();
+                } else {
+                    alert("Security Refusal: Verification token mismatch.");
+                }
+            }
+        }
+
+        // --- DASHBOARD LIFECYCLE ---
+        function initializeStudentDashboard() {
+            document.getElementById('welcome-name').innerText = `Welcome, Officer ${currentStudent.name}`;
+            document.getElementById('welcome-district').innerText = `Sector: ${currentStudent.district} Node`;
+            document.getElementById('avatar-initial').innerText = currentStudent.name.charAt(0).toUpperCase();
+            document.getElementById('score-counter').innerText = `${currentStudent.points} XP`;
+
+            const gridContainer = document.getElementById('matrix-container');
+            gridContainer.innerHTML = "";
+
+            Object.keys(matrixDatabase).forEach(key => {
+                const item = matrixDatabase[key];
+                const card = document.createElement('div');
+                card.className = "premium-card";
+                card.onclick = () => launchLearningWorkspace(key);
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${item.img}" alt="${item.title}">
+                        <span class="card-badge">${item.badge}</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>${item.title}</h3>
+                        <p>${item.desc}</p>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+
+            switchActiveView('dashboard-view');
+        }
+
+        // --- LERANING WORKSPACE MODULE ---
+        function launchLearningWorkspace(courseId) {
+            currentActiveCourseId = courseId;
+            const targetCourse = matrixDatabase[courseId];
+            
+            document.getElementById('article-payload').innerHTML = targetCourse.htmlContent;
+            
+            // Initialize Quiz parameters
+            currentQuizIndex = 0;
+            activeQuizScore = 0;
+            
+            document.getElementById('quiz-block').style.display = "block";
+            document.getElementById('module-completion-box').style.display = "none";
+            
+            renderQuizStep();
+            switchActiveView('workspace-view');
+        }
+
+        function renderQuizStep() {
+            const course = matrixDatabase[currentActiveCourseId];
+            const activeQuiz = course.quizzes[currentQuizIndex];
+            
+            document.getElementById('quiz-question-number').innerText = `Assessment Node: ${currentQuizIndex + 1} of ${course.quizzes.length}`;
+            document.getElementById('quiz-accumulated-score').innerText = `Session Points: ${activeQuizScore * 50} XP`;
+            document.getElementById('quiz-question-text').innerText = activeQuiz.q;
+
+            const optionsContainer = document.getElementById('quiz-options-box');
+            optionsContainer.innerHTML = "";
+            document.getElementById('quiz-next-btn').style.display = "none";
+
+            activeQuiz.opts.forEach((optionText, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = "quiz-opt-btn";
+                optBtn.innerText = optionText;
+                optBtn.onclick = () => processSelectedAnswer(idx, activeQuiz.ans);
+                optionsContainer.appendChild(optBtn);
+            });
+        }
+
+        function processSelectedAnswer(selectedIdx, correctIdx) {
+            const optionsButtons = document.getElementById('quiz-options-box').children;
+            
+            for (let i = 0; i < optionsButtons.length; i++) {
+                optionsButtons[i].disabled = true;
+                if (i === correctIdx) {
+                    optionsButtons[i].classList.add('correct-ans');
+                } else if (i === selectedIdx) {
+                    optionsButtons[i].classList.add('wrong-ans');
                 }
             }
 
-            if(index === correctIndex) score++;
-            document.getElementById('next-btn').style.display = "block";
+            if (selectedIdx === correctIdx) {
+                activeQuizScore++;
+            }
+
+            document.getElementById('quiz-next-btn').style.display = "block";
         }
 
-        function nextQuestion() {
-            currentQuestion++;
-            if(currentQuestion < quizData.length) {
-                loadQuiz();
+        function advanceQuizQuestion() {
+            currentQuizIndex++;
+            const course = matrixDatabase[currentActiveCourseId];
+
+            if (currentQuizIndex < course.quizzes.length) {
+                renderQuizStep();
             } else {
-                document.getElementById('quiz-container').innerHTML = "";
-                document.getElementById('quiz-result').innerText = `Quiz Complete! You scored ${score} out of ${quizData.length}.`;
+                finalizeCourseModule();
             }
         }
 
-        // Initialize the first quiz question on load
-        loadQuiz();
+        function finalizeCourseModule() {
+            const totalEarnedXP = activeQuizScore * 50;
+            currentStudent.points += totalEarnedXP;
+            document.getElementById('score-counter').innerText = `${currentStudent.points} XP`;
+
+            document.getElementById('quiz-question-number').innerText = "Assessment Concluded";
+            document.getElementById('quiz-question-text').innerText = "Module Verification Complete";
+            document.getElementById('quiz-options-box').innerHTML = "";
+            document.getElementById('quiz-next-btn').style.display = "none";
+
+            const completionBox = document.getElementById('module-completion-box');
+            completionBox.style.display = "block";
+            
+            let statusBadgeHTML = "";
+            if (activeQuizScore === courseLengthCheck()) {
+                statusBadgeHTML = `
+                    <div class="badge-unlock">
+                        <i class="fa-solid fa-award" style="font-size: 2.5rem; color: #f59e0b; margin-bottom: 10px;"></i>
+                        <h4 style="color: #f59e0b; font-size: 1.2rem; margin-bottom: 5px;">Elite Badge Unlocked!</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">You have verified absolute logic mastery over this subject zone.</p>
+                    </div>
+                `;
+            }
+
+            completionBox.innerHTML = `
+                <p style="font-size: 1.1rem; margin-bottom: 15px; font-weight: 600;">You successfully processed ${activeQuizScore} out of ${courseLengthCheck()} matrix targets.</p>
+                <p style="color: var(--primary); font-weight: bold; margin-bottom: 20px;">+ ${totalEarnedXP} Points allocated to your account.</p>
+                ${statusBadgeHTML}
+            `;
+        }
+
+        function courseLengthCheck() {
+            return matrixDatabase[currentActiveCourseId].quizzes.length;
+        }
+
+        // --- NAVIGATION CONTROLS ---
+        function navigateToDashboard() {
+            switchActiveView('dashboard-view');
+        }
+
+        function switchActiveView(viewId) {
+            document.querySelectorAll('.view-section').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
