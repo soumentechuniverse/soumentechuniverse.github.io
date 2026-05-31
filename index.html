@@ -1,21 +1,254 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Soumen Tech Universe</title>
-<style>
-body{margin:0;font-family:Arial;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;justify-content:center;align-items:center;color:white;text-align:center;}
-.box{background:rgba(255,255,255,0.2);padding:40px;border-radius:20px;}
-h1{font-size:2em;margin-bottom:15px;}
-p{font-size:1.1em;margin:8px 0;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumen Tech Universe</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .hidden-content { display: none; }
+    </style>
 </head>
-<body>
-<div class="box">
-<h1>🌟 Soumen Tech Universe</h1>
-<p>Welcome to my website!</p>
-<p>📱 Created with GitHub Pages</p>
-<p>✨ Completely Free</p>
-</div>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <div id="registration-wall" class="fixed inset-0 bg-gray-950 flex items-center justify-center z-50 p-4">
+        <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl max-w-md w-full border border-cyan-500/30">
+            <h2 class="text-3xl font-bold text-center text-cyan-400 mb-2">Soumen Tech Universe</h2>
+            <p class="text-gray-400 text-center mb-6 text-sm">Register for free to unlock complete computer science & cyber security courses.</p>
+            
+            <form id="reg-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Full Name</label>
+                    <input type="text" id="username" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Email Address</label>
+                    <input type="email" id="email" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400" placeholder="name@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Mobile Number</label>
+                    <input type="tel" id="mobile" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400" placeholder="+1234567890">
+                </div>
+                <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-gray-900 font-bold py-3 rounded-lg transition-all shadow-lg shadow-cyan-500/20 cursor-pointer">
+                    Unlock Free Access
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="main-content" class="hidden-content">
+        <nav class="bg-gray-800 border-b border-gray-700 sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-black tracking-wider text-cyan-400">SOUMEN TECH UNIVERSE</h1>
+            <div class="flex items-center space-x-4">
+                <span id="user-display" class="text-sm text-gray-400 bg-gray-900 px-3 py-1 rounded-full border border-gray-700"></span>
+                <button onclick="logout()" class="text-xs bg-red-500/20 hover:bg-red-500 text-red-300 hover:text-white px-3 py-1 rounded transition cursor-pointer">Logout</button>
+            </div>
+        </nav>
+
+        <header class="max-w-6xl mx-auto px-6 py-16 text-center">
+            <h2 class="text-5xl font-extrabold text-white mb-4">Master Computer Science & <span class="text-cyan-400">Cyber Security</span></h2>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">From fundamental history to advanced script writing, networking, and ethical hacking. 100% Free forever.</p>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-2">
+                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest px-3 mb-3">Modules</h3>
+                <button onclick="showModule('basics')" class="module-btn w-full text-left px-4 py-3 rounded-lg bg-cyan-500 text-gray-900 font-semibold transition cursor-pointer" id="btn-basics">1. Computer Basics & History</button>
+                <button onclick="showModule('networking')" class="module-btn w-full text-left px-4 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition cursor-pointer" id="btn-networking">2. Advanced Networking</button>
+                <button onclick="showModule('programming')" class="module-btn w-full text-left px-4 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition cursor-pointer" id="btn-programming">3. Programming (C++, Python, Java)</button>
+                <button onclick="showModule('cybersecurity')" class="module-btn w-full text-left px-4 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition cursor-pointer" id="btn-cybersecurity">4. Cyber Security</button>
+                <button onclick="showModule('quiz')" class="module-btn w-full text-left px-4 py-3 rounded-lg bg-purple-600/30 border border-purple-500/50 hover:bg-purple-600 text-purple-200 hover:text-white font-bold transition mt-6 cursor-pointer" id="btn-quiz">🎯 Knowledge Quiz</button>
+            </div>
+
+            <div class="md:col-span-3 bg-gray-800 p-8 rounded-2xl border border-gray-700 min-h-[500px]">
+                
+                <div id="mod-basics" class="module-content space-y-6">
+                    <h3 class="text-3xl font-bold text-cyan-400">Module 1: Computer Basics & History</h3>
+                    <div class="prose prose-invert max-w-none space-y-4 text-gray-300">
+                        <h4 class="text-xl font-semibold text-white">What is a Computer?</h4>
+                        <p>A computer is an advanced electronic device that takes raw data as input from the user and processes it under the control of a set of instructions (called program), produces a result (output), and saves it for future use.</p>
+                        
+                        <h4 class="text-xl font-semibold text-white">Brief History & Origin</h4>
+                        <p>The history of the computer dates back to the invention of the <strong>Abacus</strong> in Babylonia around 2400 BC. However, the foundation of modern computing was laid by <strong>Charles Babbage</strong>, who designed the <em>Analytical Engine</em> in 1837. He is rightfully known as the "Father of the Computer".</p>
+                        
+                        <h4 class="text-xl font-semibold text-white">Generations of Computers</h4>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>1st Gen (1940-1956):</strong> Vacuum Tubes (e.g., ENIAC). Very large, expensive, and emitted enormous heat.</li>
+                            <li><strong>2nd Gen (1956-1963):</strong> Transistors. Smaller, faster, and more energy-efficient.</li>
+                            <li><strong>3rd Gen (1964-1971):</strong> Integrated Circuits (ICs). Introduction of keyboards, monitors, and early operating systems.</li>
+                            <li><strong>4th Gen (1971-Present):</strong> Microprocessors (VLSI/ULSI circuits). Brought computing to desktop setups and personal smartphones.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="mod-networking" class="module-content hidden-content space-y-6">
+                    <h3 class="text-3xl font-bold text-cyan-400">Module 2: Advanced Networking</h3>
+                    <div class="prose prose-invert max-w-none space-y-4 text-gray-300">
+                        <h4 class="text-xl font-semibold text-white">Introduction to Computer Networks</h4>
+                        <p>Data communication and computer networks form the backbone of modern cyber space. It allows multiple computer nodes to share data resources seamlessly using wired or wireless media protocols.</p>
+                        
+                        <h4 class="text-xl font-semibold text-white">The OSI Model (7 Layers)</h4>
+                        <p>The Open Systems Interconnection model defines a conceptual framework for network communications:</p>
+                        <ol class="list-decimal pl-5 space-y-1">
+                            <li><strong>Physical Layer:</strong> Transmission of raw bit streams over physical media.</li>
+                            <li><strong>Data Link Layer:</strong> Node-to-node data transfer and framing (MAC addresses).</li>
+                            <li><strong>Network Layer:</strong> Routing paths and logical addressing (IP addresses).</li>
+                            <li><strong>Transport Layer:</strong> Reliable end-to-end connection (TCP/UDP protocols).</li>
+                            <li><strong>Session Layer:</strong> Managing sessions between applications.</li>
+                            <li><strong>Presentation Layer:</strong> Data translation, encryption, and formatting.</li>
+                            <li><strong>Application Layer:</strong> Human-computer interaction (HTTP, FTP, SMTP).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div id="mod-programming" class="module-content hidden-content space-y-6">
+                    <h3 class="text-3xl font-bold text-cyan-400">Module 3: Core Programming Languages</h3>
+                    <p class="text-gray-400">To be a successful Security Analyst or Programmer, learning how to write scripts and read codebase logic is crucial.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                            <h4 class="text-lg font-bold text-yellow-400 mb-2">1. Python (The Hacker's Choice)</h4>
+                            <p class="text-sm text-gray-400 mb-2">Used heavily for automation, exploit writing, and scanning scripts.</p>
+                            <pre class="bg-black text-green-400 p-3 rounded text-xs overflow-x-auto"># Basic Python Script to scan ports
+import socket
+print("Initializing Security Scan...")
+# Your security logic goes here</pre>
+                        </div>
+
+                        <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                            <h4 class="text-lg font-bold text-blue-400 mb-2">2. C++ (Performance & Memory Manipulation)</h4>
+                            <p class="text-sm text-gray-400 mb-2">Crucial for reverse engineering, understanding malware architecture, and firmware coding.</p>
+                            <pre class="bg-black text-green-400 p-3 rounded text-xs overflow-x-auto">#include &lt;iostream&gt;
+int main() {
+    std::cout << "Secure Architecture Executed." << std::endl;
+    return 0;
+}</pre>
+                        </div>
+
+                        <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                            <h4 class="text-lg font-bold text-orange-400 mb-2">3. Java (Enterprise Security & Android Analysis)</h4>
+                            <p class="text-sm text-gray-400 mb-2">Essential for cross-platform app security audits and enterprise structural safety.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="mod-cybersecurity" class="module-content hidden-content space-y-6">
+                    <h3 class="text-3xl font-bold text-red-400">Module 4: Practical Cyber Security</h3>
+                    <div class="prose prose-invert max-w-none space-y-4 text-gray-300">
+                        <h4 class="text-xl font-semibold text-white">The CIA Triad</h4>
+                        <p>The core objective of security is mapped using three main parameters:</p>
+                        <ul class="list-disc pl-5">
+                            <li><strong>Confidentiality:</strong> Preventing unauthorized access to data.</li>
+                            <li><strong>Integrity:</strong> Ensuring information cannot be modified unnoticed.</li>
+                            <li><strong>Availability:</strong> Making sure verified users have uninterrupted system access.</li>
+                        </ul>
+                        
+                        <h4 class="text-xl font-semibold text-white">Essential Areas of Cyber Security</h4>
+                        <p>As you progress from basic modules, you will explore advanced topics like:</p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Vulnerability Assessment & Penetration Testing (VAPT)</strong></li>
+                            <li><strong>Network Sniffing & Cryptography (AES, RSA Algorithms)</strong></li>
+                            <li><strong>Defensive Blue Teaming & Incident Response Logs</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="mod-quiz" class="module-content hidden-content space-y-6">
+                    <h3 class="text-3xl font-bold text-purple-400">🎯 Interactive Tech Quiz</h3>
+                    <p class="text-gray-400 text-sm">Test your tech knowledge to unlock your completion points!</p>
+                    
+                    <div class="space-y-6 pt-4">
+                        <div class="space-y-3">
+                            <p class="text-lg font-medium text-white">1. Who is recognized universally as the Father of the Computer?</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <button onclick="checkQuiz(false, this)" class="bg-gray-950 hover:bg-gray-700 text-left px-4 py-2 rounded-lg border border-gray-700 transition cursor-pointer">Alan Turing</button>
+                                <button onclick="checkQuiz(true, this)" class="bg-gray-950 hover:bg-gray-700 text-left px-4 py-2 rounded-lg border border-gray-700 transition cursor-pointer">Charles Babbage</button>
+                                <button onclick="checkQuiz(false, this)" class="bg-gray-950 hover:bg-gray-700 text-left px-4 py-2 rounded-lg border border-gray-700 transition cursor-pointer">Bill Gates</button>
+                                <button onclick="checkQuiz(false, this)" class="bg-gray-950 hover:bg-gray-700 text-left px-4 py-2 rounded-lg border border-gray-700 transition cursor-pointer">Dennis Ritchie</button>
+                            </div>
+                        </div>
+                        <div id="quiz-feedback" class="text-sm font-semibold h-6"></div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Check if user session already exists on load
+        document.addEventListener("DOMContentLoaded", function() {
+            const registeredUser = localStorage.getItem("soumen_tech_user");
+            if (registeredUser) {
+                initDashboard(registeredUser);
+            }
+        });
+
+        // Form Submission Event
+        document.getElementById("reg-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const name = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const mobile = document.getElementById("mobile").value;
+
+            if(name && email && mobile) {
+                localStorage.setItem("soumen_tech_user", name);
+                initDashboard(name);
+            }
+        });
+
+        function initDashboard(name) {
+            document.getElementById("registration-wall").classList.add("hidden-content");
+            document.getElementById("main-content").classList.remove("hidden-content");
+            document.getElementById("user-display").innerText = "👤 Hello, " + name;
+        }
+
+        function logout() {
+            localStorage.removeItem("soumen_tech_user");
+            window.location.reload();
+        }
+
+        // Module Navigation Logic
+        function showModule(moduleName) {
+            // Hide all contents
+            const contents = document.querySelectorAll('.module-content');
+            contents.forEach(content => content.classList.add('hidden-content'));
+            
+            // Show selected content
+            document.getElementById('mod-' + moduleName).classList.remove('hidden-content');
+
+            // Reset navigation button colors
+            const buttons = document.querySelectorAll('.module-btn');
+            buttons.forEach(btn => {
+                if(btn.id === 'btn-quiz') {
+                    btn.className = "module-btn w-full text-left px-4 py-3 rounded-lg bg-purple-600/30 border border-purple-500/50 hover:bg-purple-600 text-purple-200 hover:text-white font-bold transition mt-6 cursor-pointer";
+                } else {
+                    btn.className = "module-btn w-full text-left px-4 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 transition cursor-pointer";
+                }
+            });
+
+            // Highlight active button
+            const activeBtn = document.getElementById('btn-' + moduleName);
+            if(moduleName === 'quiz') {
+                activeBtn.className = "module-btn w-full text-left px-4 py-3 rounded-lg bg-purple-600 text-white font-bold transition mt-6 cursor-pointer";
+            } else {
+                activeBtn.className = "module-btn w-full text-left px-4 py-3 rounded-lg bg-cyan-500 text-gray-900 font-semibold transition cursor-pointer";
+            }
+        }
+
+        // Quiz Verification
+        function checkQuiz(isCorrect, element) {
+            const feedback = document.getElementById("quiz-feedback");
+            if(isCorrect) {
+                feedback.innerText = "🎉 Correct Answer! Charles Babbage is the Father of Computing.";
+                feedback.className = "text-sm font-semibold text-green-400";
+                element.className = "bg-green-600 text-white text-left px-4 py-2 rounded-lg border border-green-500 transition cursor-pointer";
+            } else {
+                feedback.innerText = "❌ Incorrect! Please try again.";
+                feedback.className = "text-sm font-semibold text-red-400";
+                element.className = "bg-red-600/50 text-white text-left px-4 py-2 rounded-lg border border-red-500 transition cursor-pointer";
+            }
+        }
+    </script>
 </body>
 </html>
