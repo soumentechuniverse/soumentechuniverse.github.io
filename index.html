@@ -3,846 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soumen Tech Universe - Ultimate Tech & Cyber Security Academy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
+    <title>Soumen Tech Universe - Cyber Security Hub</title>
     <style>
-        :root {
-            --bg-dark: #020c1b;
-            --bg-card: #0a192f;
-            --bg-light: #112240;
-            --accent: #64ffda;
-            --text-white: #e6f1ff;
-            --text-gray: #8892b0;
-            --neon-blue: #00f2fe;
-            --gold: #ffd700;
-        }
-
+        /* Dark Blue Theme & Styling */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-white);
-            overflow-x: hidden;
+            background-color: #0a1128;
+            color: #e2e8f0;
+            line-height: 1.6;
         }
 
-        /* 3D Particle Background Canvas */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-        }
-
-        /* Neon Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-
-        /* Header Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(2, 12, 27, 0.85);
-            backdrop-filter: blur(15px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid rgba(100, 255, 218, 0.1);
-        }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-            text-shadow: 0 0 8px var(--accent);
-        }
-
-        .coin-dash {
-            background: rgba(255, 215, 0, 0.1);
-            border: 1px solid var(--gold);
-            padding: 5px 15px;
-            border-radius: 20px;
-            color: var(--gold);
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* 3D Intro Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        header {
+            background: linear-gradient(135deg, #001f54, #003459);
+            padding: 40px 20px;
             text-align: center;
-            padding: 0 20px;
-            perspective: 1000px;
+            border-bottom: 3px solid #00a8cc;
+            box-shadow: 0 4px 20px rgba(0, 168, 204, 0.2);
         }
 
-        .hero-3d-box {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
-            text-transform: uppercase;
-            color: var(--text-white);
-            margin-bottom: 20px;
-            transform-style: preserve-3d;
-            animation: float3D 5s ease-in-out infinite;
-        }
-
-        .hero-3d-box span {
-            color: var(--accent);
-            text-shadow: 0 0 30px var(--accent);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            max-width: 700px;
-            margin-bottom: 35px;
-        }
-
-        /* Universal Cosmic Button */
-        .cyber-btn {
-            padding: 15px 35px;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            background: transparent;
-            font-size: 1rem;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.5s;
-            text-decoration: none;
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
-        }
-
-        .cyber-btn:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-            box-shadow: 0 0 35px var(--accent);
-            transform: scale(1.05);
-        }
-
-        /* Registration Blocker Overlay */
-        .lock-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 12, 27, 0.95);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .reg-box {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 450px;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 40px rgba(0, 242, 254, 0.3);
-            text-align: center;
-            transform: rotateX(10deg);
-        }
-
-        .reg-box h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--neon-blue);
-            margin-bottom: 25px;
-        }
-
-        .reg-box input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            background: var(--bg-light);
-            border: 1px solid var(--text-gray);
-            color: white;
-            border-radius: 5px;
-            outline: none;
-            font-size: 1rem;
-        }
-
-        .reg-box input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        /* Main Giant Content Section */
-        .main-container {
-            padding: 60px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
-            margin-bottom: 60px;
-            color: var(--text-white);
+        header h1 {
+            color: #00a8cc;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        /* 3D Grid Layout for Massive Courses */
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
+        header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
         }
 
-        .course-card {
-            background: var(--bg-card);
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .module-card {
+            background: #111e38;
+            border: 1px solid #1e293b;
             border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(100, 255, 218, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            position: relative;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .course-card:hover {
-            transform: translateY(-15px) scale(1.03) rotateY(5deg);
-            border-color: var(--neon-blue);
-            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.2);
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-color: #00a8cc;
         }
 
-        .course-img-wrapper {
-            height: 220px;
-            position: relative;
-            overflow: hidden;
-            background: #112240;
-        }
-
-        .course-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
-            transition: 0.5s;
-        }
-
-        .course-card:hover .course-img-wrapper img {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .course-badge {
-            position: absolute;
-            top: 15px; left: 15px;
-            background: var(--accent);
-            color: var(--bg-dark);
-            padding: 5px 12px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-
-        .course-info {
-            padding: 25px;
-        }
-
-        .course-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            color: var(--neon-blue);
-        }
-
-        .course-info p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .module-title {
+            color: #00a8cc;
+            font-size: 1.8rem;
             margin-bottom: 20px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
 
-        /* Massive Expanded Syllabus Details Panel */
-        .syllabus-panel {
-            background: var(--bg-light);
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            margin-top: 15px;
-            border-radius: 0 8px 8px 0;
-            display: none;
-            animation: slideDown 0.4s ease forwards;
-        }
-
-        .syllabus-panel h4 {
-            color: var(--accent);
-            margin-bottom: 10px;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .syllabus-panel ul {
+        .chapter-list {
             list-style: none;
         }
 
-        .syllabus-panel ul li {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .syllabus-panel ul li i {
-            color: var(--neon-blue);
-        }
-
-        /* Gamified Quiz Zone */
-        .quiz-section {
-            background: radial-gradient(circle at center, #0a192f 0%, #020c1b 100%);
-            padding: 80px 5%;
-            border-top: 2px solid rgba(100, 255, 218, 0.1);
-        }
-
-        .quiz-container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            border: 1px solid var(--gold);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
-            text-align: center;
-        }
-
-        .quiz-q {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .option-btn {
-            background: var(--bg-light);
-            border: 1px solid var(--text-gray);
-            color: white;
+        .chapter-item {
+            background: #1c2d42;
+            margin: 10px 0;
             padding: 15px;
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            border-left: 4px solid #00a8cc;
+            transition: background 0.2s;
         }
 
-        .option-btn:hover {
-            border-color: var(--accent);
-            background: rgba(100, 255, 218, 0.05);
-            transform: translateX(10px);
+        .chapter-item:hover {
+            background: #243b55;
         }
 
-        /* Hidden God-Mode Admin Panel */
-        .admin-section {
-            padding: 80px 5%;
-            background: #050515;
-            border-top: 2px solid #ff4a4a;
+        .chapter-item h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
         }
 
-        .admin-title {
-            color: #ff4a4a;
-            text-shadow: 0 0 10px #ff4a4a;
-            font-family: 'Orbitron', sans-serif;
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 30px;
+        .chapter-item p {
+            color: #94a3b8;
+            font-size: 0.95rem;
         }
 
-        .admin-table-wrapper {
-            overflow-x: auto;
-            max-width: 1000px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            border: 1px solid #ff4a4a;
-            border-radius: 8px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 74, 74, 0.2);
-        }
-
-        th {
-            background: #110515;
-            color: #ff4a4a;
-        }
-
-        /* Keyframe Animations */
-        @keyframes float3D {
-            0% { transform: rotateY(0deg) translateY(0px); }
-            50% { transform: rotateY(10deg) translateY(-15px); }
-            100% { transform: rotateY(0deg) translateY(0px); }
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .badge {
+            background-color: #00a8cc;
+            color: #0a1128;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
         }
 
         footer {
             text-align: center;
-            padding: 40px;
-            background: var(--bg-dark);
-            border-top: 1px solid rgba(100, 255, 218, 0.1);
-            color: var(--text-gray);
-            font-size: 0.9rem;
+            padding: 30px;
+            color: #64748b;
+            border-top: 1px solid #1e293b;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
+    <header>
+        <h1>Soumen Tech Universe</h1>
+        <p>Advanced Cyber Security & Multi-Layer Defense Training</p>
+    </header>
 
-    <div class="lock-overlay" id="authGate">
-        <div class="reg-box">
-            <i class="fas fa-user-shield" style="font-size: 3rem; color: var(--neon-blue); margin-bottom: 15px;"></i>
-            <h2>Soumen Tech Universe</h2>
-            <p style="color: var(--text-gray); margin-bottom: 25px; font-size: 0.9rem;">Register to unlock 100+ Hours of Premium Coding & Cyber Security Content for 100% Free.</p>
-            <form id="regForm" onsubmit="registerUser(event)">
-                <input type="text" id="regName" placeholder="Enter Full Name" required>
-                <input type="email" id="regEmail" placeholder="Enter Email Address" required>
-                <input type="tel" id="regPhone" placeholder="Enter Phone Number" required>
-                <button type="submit" class="cyber-btn" style="width:100%">Unlock Universe</button>
-            </form>
+    <div class="container">
+
+        <div class="module-card">
+            <div class="module-title">
+                Module 06: Multi-Layer Defensive & Offensive Security
+                <span class="badge">Security Core</span>
+            </div>
+            
+            <ul class="chapter-list">
+                <li class="chapter-item">
+                    <h3>Chapter 1: Advanced Reconnaissance & Intelligence Gathering</h3>
+                    <p>Information gathering methods, OSINT tactics, passive vs active scanning, and sub-domain enumeration techniques.</p>
+                </li>
+                <li class="chapter-item">
+                    <h3>Chapter 2: OWASP Top 10 Vulnerabilities & Exploitations</h3>
+                    <p>Deep dive into modern web vulnerabilities: SQLi, XSS, broken authentication, and security misconfigurations with mitigation labs.</p>
+                </li>
+                <li class="chapter-item">
+                    <h3>Chapter 3: Modern Cryptography & Key Management</h3>
+                    <p>Symmetric vs Asymmetric encryption algorithms, hashing functions (SHA-256/3), and secure management of cryptographic keys.</p>
+                </li>
+                <li class="chapter-item">
+                    <h3>Chapter 4: Privilege Escalation (Windows & Linux)</h3>
+                    <p>Techniques for elevating restricted access to administrative rights using misconfigured services, SUID binaries, and kernel exploits.</p>
+                </li>
+                <li class="chapter-item">
+                    <h3>Chapter 5: Zero-Trust Network Architecture Implementation</h3>
+                    <p>Designing modern enterprise security networks using identity verification, strict access controls, and network micro-segmentation.</p>
+                </li>
+            </ul>
         </div>
+
     </div>
 
-    <nav>
-        <div class="logo">SOUMEN TECH UNIVERSE</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#courses">Advanced Courses</a></li>
-            <li><a href="#quiz">Gamified Quiz</a></li>
-            <li><a href="#admin">Admin DB Panel</a></li>
-        </ul>
-        <div class="coin-dash">
-            <i class="fas fa-coins"></i>
-            <span id="globalCoins">0</span> COINS
-        </div>
-    </nav>
-
-    <section class="hero" id="home">
-        <div class="hero-3d-box">Explore The <span>Tech Cosmos</span></div>
-        <p>From the absolute birth of computing in the 1940s to Elite Level Multi-Layer Cyber Security Defense. Learn languages, solve real-world algorithms, earn space coins, completely free.</p>
-        <a href="#courses" class="cyber-btn">Enter Deep Space Courses</a>
-    </section>
-
-    <section class="main-container" id="courses">
-        <h2 class="section-title">The Ultimate 7-8 Hour Deep Dive Tracks</h2>
-        
-        <div class="course-grid">
-            
-            <div class="course-card" onclick="toggleSyllabus('s1')">
-                <div class="course-img-wrapper">
-                    <span class="course-badge">Module 01</span>
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80" alt="History of Computer">
-                </div>
-                <div class="course-info">
-                    <h3>Computer Genesis & Architecture</h3>
-                    <p>Trace computing back to its 1940s ENIAC origins. Dive deep into Von Neumann architecture, transistors, memory registers, CPUs, and full hardware foundations.</p>
-                    <span style="color: var(--accent); font-weight: bold; font-size: 0.85rem;">[ Click Card to Expand Syllabus ]</span>
-                    
-                    <div class="syllabus-panel" id="s1">
-                        <h4>Detailed Curriculum (Chapters 1-15)</h4>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> 1940 - 1956: The First Generation (Vacuum Tubes, ENIAC)</li>
-                            <li><i class="fas fa-check-circle"></i> Von Neumann Architecture (ALU, Control Unit, Registers)</li>
-                            <li><i class="fas fa-check-circle"></i> Binary Math, Hexadecimal Coding, & Boolean Gates</li>
-                            <li><i class="fas fa-check-circle"></i> Assembly Language & Micro-Operations</li>
-                            <li><i class="fas fa-check-circle"></i> Operating System Kernels & Memory Management</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card" onclick="toggleSyllabus('s2')">
-                <div class="course-img-wrapper">
-                    <span class="course-badge">Module 02</span>
-                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=500&q=80" alt="Networking">
-                </div>
-                <div class="course-info">
-                    <h3>Advanced Networking & Infrastructure</h3>
-                    <p>The entire nervous system of cyberspace. Comprehensive deep dive into OSI models, TCP/IP tracking, socket sub-netting, and enterprise architecture protocols.</p>
-                    <span style="color: var(--accent); font-weight: bold; font-size: 0.85rem;">[ Click Card to Expand Syllabus ]</span>
-                    
-                    <div class="syllabus-panel" id="s2">
-                        <h4>Detailed Curriculum (Chapters 1-20)</h4>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> OSI Model Layer 1 to Layer 7 Master Deep Dive</li>
-                            <li><i class="fas fa-check-circle"></i> Deep Packet Analysis: TCP Handshake & Wireshark Labs</li>
-                            <li><i class="fas fa-check-circle"></i> IP Addressing, CIDR Notation, & Subnetting Strategies</li>
-                            <li><i class="fas fa-check-circle"></i> DNS Hierarchy, BGP Routing, and HTTPS/TLS Encryption</li>
-                            <li><i class="fas fa-check-circle"></i> Network Topology & Software Defined Networking (SDN)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card" onclick="toggleSyllabus('s3')">
-                <div class="course-img-wrapper">
-                    <span class="course-badge">Module 03</span>
-                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=500&q=80" alt="Python">
-                </div>
-                <div class="course-info">
-                    <h3>Python Automation & Offensive Scripts</h3>
-                    <p>Go from standard variable declarations to building professional network scanners, keyloggers, automated exploits, and algorithmic data processors.</p>
-                    <span style="color: var(--accent); font-weight: bold; font-size: 0.85rem;">[ Click Card to Expand Syllabus ]</span>
-                    
-                    <div class="syllabus-panel" id="s3">
-                        <h4>Detailed Curriculum (Chapters 1-25)</h4>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> Python Fundamentals: Core Syntaxes & Data Structures</li>
-                            <li><i class="fas fa-check-circle"></i> Functional Programming & OOP Concepts in Python</li>
-                            <li><i class="fas fa-check-circle"></i> Socket Programming: Building a Custom Port Scanner</li>
-                            <li><i class="fas fa-check-circle"></i> File Handling, Subprocesses, & Payload Automation</li>
-                            <li><i class="fas fa-check-circle"></i> Advanced Library Architectures: Scapy, Requests, Paramiko</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card" onclick="toggleSyllabus('s4')">
-                <div class="course-img-wrapper">
-                    <span class="course-badge">Module 04</span>
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=500&q=80" alt="Java">
-                </div>
-                <div class="course-info">
-                    <h3>Enterprise Java & Robust Architecture</h3>
-                    <p>Master Object-Oriented paradigms inside Java. Learn memory allocations, JVM compilation, multi-threading systems, and building secure backend systems.</p>
-                    <span style="color: var(--accent); font-weight: bold; font-size: 0.85rem;">[ Click Card to Expand Syllabus ]</span>
-                    
-                    <div class="syllabus-panel" id="s4">
-                        <h4>Detailed Curriculum (Chapters 1-22)</h4>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> Java Virtual Machine (JVM) Internal Execution Engine</li>
-                            <li><i class="fas fa-check-circle"></i> Strict OOP Principles: Polymorphism, Inheritance, Interfaces</li>
-                            <li><i class="fas fa-check-circle"></i> Exception Handling Frameworks & Clean Code Design</li>
-                            <li><i class="fas fa-check-circle"></i> Concurrency & Advanced Multi-threading Optimization</li>
-                            <li><i class="fas fa-check-circle"></i> Database Security Integrations using JDBC Layers</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card" onclick="toggleSyllabus('s5')">
-                <div class="course-img-wrapper">
-                    <span class="course-badge">Module 05</span>
-                    <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=500&q=80" alt="C++">
-                </div>
-                <div class="course-info">
-                    <h3>Low-Level Systems Programming with C++</h3>
-                    <p>Gain absolute control over memory management. Learn pointers, references, dynamic heap allocation, reverse engineering baselines, and execution speeds.</p>
-                    <span style="color: var(--accent); font-weight: bold; font-size: 0.85rem;">[ Click Card to Expand Syllabus ]</span>
-                    
-                    <div class="syllabus-panel" id="s5">
-                        <h4>Detailed Curriculum (Chapters 1-30)</h4>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> Pointer Manipulation, Memory Addresses, & Core Allocation</li>
-                            <li><i class="fas fa-check-circle"></i> C++ Memory Flow: Stack vs Dynamic Heap Structuring</li>
-                            <li><i class="fas fa-check-circle"></i> Standard Template Library (STL) Optimization Engines</li>
-                            <li><i class="fas fa-check-circle"></i> Resource Acquisition Is Initialization (RAII) Patterns</li>
-                            <li><i class="fas fa-check-circle"></i> Reverse Engineering Concepts & Exploit Vector Vectors</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card" onclick="toggleSyllabus('s6')">
-                <div class="course-img-wrapper">
-                    <span class="course-badge">Module 06</span>
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=500&q=80" alt="Cyber Security">
-                </div>
-                <div class="course-info">
-                    <h3>Multi-Layer Defensive & Offensive Security</h3>
-                    <p>Become an Elite Cybersecurity Architect. Learn penetration testing methodologies, cryptographic defense math, OWASP Top 10 vulnerabilities, and infrastructure protection.</p>
-                    <span style="color: var(--accent); font-weight: bold; font-size: 0.85rem;">[ Click Card to Expand Syllabus ]</span>
-                    
-                    <div class="syllabus-panel" id="s6">
-                        <h4>Detailed Curriculum (Chapters 1-40)</h4>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> Reconnaissance, OSINT, & Target Mapping Infrastructures</li>
-                            <li><i class="fas fa-check-circle"></i> OWASP Top 10 Exploitations (SQLi, XSS, CSRF Controls)</li>
-                            <li><i class="fas fa-check-circle"></i> Modern Cryptography: AES, RSA, Elliptic Curve, & Hashing</li>
-                            <li><i class="fas fa-check-circle"></i> Privilege Escalation Vectors & Firewalls Evasions</li>
-                            <li><i class="fas fa-check-circle"></i> Zero-Trust Network Implementations & Threat Hunting Labs</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="quiz-section" id="quiz">
-        <h2 class="section-title">The Cosmos Gamified Quiz Matrix</h2>
-        <div class="quiz-container">
-            <p style="color: var(--gold); font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;"><i class="fas fa-trophy"></i> CHALLENGE MODE</p>
-            <div class="quiz-q" id="questionBox">Loading Quantum Question...</div>
-            <div class="options-grid" id="optionsBox">
-                </div>
-        </div>
-    </section>
-
-    <section class="admin-section" id="admin">
-        <h2 class="admin-title"><i class="fas fa-database"></i> Live Database Terminal (Admin View)</h2>
-        <p style="text-align:center; color: var(--text-gray); margin-bottom: 25px;">This local data logger records every student profile entering your network galaxy.</p>
-        
-        <div class="admin-table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>User Name</th>
-                        <th>Registered Email</th>
-                        <th>Mobile Number</th>
-                        <th>Earned Coins</th>
-                    </tr>
-                </thead>
-                <tbody id="adminTableBody">
-                    <tr>
-                        <td colspan="4" style="text-align: center; color: var(--text-gray);">No users registered in this session yet.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
     <footer>
-        <p>&copy; 2026 Soumen Tech Universe. Engineered with High-Fidelity Responsive 3D Aesthetics. All System Operations Active.</p>
+        <p>&copy; 2026 Soumen Tech Universe. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        // Global State Variables
-        let userProfile = { name: "", email: "", phone: "", coins: 0 };
-        let registeredUsersDB = [];
-
-        // 3D Canvas Matrix Background
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2.5 + 0.5;
-                this.speedX = Math.random() * 0.6 - 0.3;
-                this.speedY = Math.random() * 0.6 - 0.3;
-                this.color = Math.random() > 0.5 ? '#64ffda' : '#00f2fe';
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 95; i++) {
-                particles.push(new Particle());
-            }
-        }
-        initParticles();
-
-        function animateBg() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateBg);
-        }
-        animateBg();
-
-        // One-Click Free Registration Engine
-        function registerUser(event) {
-            event.preventDefault();
-            userProfile.name = document.getElementById('regName').value;
-            userProfile.email = document.getElementById('regEmail').value;
-            userProfile.phone = document.getElementById('regPhone').value;
-            userProfile.coins = 0;
-
-            // Push to Admin Live Terminal Database Array
-            registeredUsersDB.push({...userProfile});
-
-            // Remove Registration Blocker Overlay
-            document.getElementById('authGate').style.display = 'none';
-            alert(`Welcome to Soumen Tech Universe, ${userProfile.name}! Your free access is activated.`);
-            
-            updateAdminPanel();
-            loadQuizQuestion();
-        }
-
-        // Real-Time Admin Panel Syncing
-        function updateAdminPanel() {
-            const tableBody = document.getElementById('adminTableBody');
-            tableBody.innerHTML = "";
-
-            registeredUsersDB.forEach(user => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="color: var(--accent); font-weight: bold;">${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.phone}</td>
-                    <td style="color: var(--gold); font-weight: bold;"><i class="fas fa-coins"></i> ${user.coins}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Toggle Syllabus Accordion Effect
-        function toggleSyllabus(id) {
-            const panel = document.getElementById(id);
-            if(panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        }
-
-        // Infinite Quiz Bank Array
-        const quizBank = [
-            {
-                q: "In which decade was the ENIAC (The first electronic programmable computer) built?",
-                options: ["A) 1920s", "B) 1940s", "C) 1960s", "D) 1980s"],
-                correct: 1
-            },
-            {
-                q: "Which layer of the OSI model handles end-to-end connection and packet sequencing?",
-                options: ["A) Physical Layer", "B) Data Link Layer", "C) Transport Layer", "D) Application Layer"],
-                correct: 2
-            },
-            {
-                q: "Which C++ mechanism ensures object resources are freed automatically when going out of scope?",
-                options: ["A) Pointers", "B) RAII", "C) Dynamic Cast", "D) Web Templates"],
-                correct: 1
-            },
-            {
-                q: "What type of attack exploits vulnerabilities in web applications by injecting malicious client-side scripts?",
-                options: ["A) SQL Injection", "B) Cross-Site Scripting (XSS)", "C) DDoS Attack", "D) Buffer Overflow"],
-                correct: 1
-            }
-        ];
-
-        let currentQuizIndex = 0;
-
-        function loadQuizQuestion() {
-            if(currentQuizIndex >= quizBank.length) {
-                currentQuizIndex = 0; // Loop quiz pool infinitely
-            }
-            const currentQuiz = quizBank[currentQuizIndex];
-            document.getElementById('questionBox').innerText = currentQuiz.q;
-            
-            const optionsBox = document.getElementById('optionsBox');
-            optionsBox.innerHTML = "";
-
-            currentQuiz.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "option-btn";
-                btn.innerHTML = `<i class="far fa-dot-circle"></i> ${opt}`;
-                btn.onclick = () => verifyAnswer(idx);
-                optionsBox.appendChild(btn);
-            });
-        }
-
-        function verifyAnswer(selectedIndex) {
-            const currentQuiz = quizBank[currentQuizIndex];
-            if(selectedIndex === currentQuiz.correct) {
-                userProfile.coins += 10;
-                document.getElementById('globalCoins').innerText = userProfile.coins;
-                
-                // Keep the database synchronised
-                if(registeredUsersDB.length > 0) {
-                    registeredUsersDB[registeredUsersDB.length - 1].coins = userProfile.coins;
-                }
-                updateAdminPanel();
-
-                alert("Target Neutralized! Correct Answer. +10 Space Coins Added!");
-                currentQuizIndex++;
-                loadQuizQuestion();
-            } else {
-                alert("Exploit Failed! Incorrect Answer. Re-analyze and try again!");
-            }
-        }
-    </script>
 </body>
 </html>
