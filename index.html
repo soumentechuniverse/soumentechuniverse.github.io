@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soumen Tech Universe - Cyber Security Hub</title>
+    <title>Soumen Tech Universe - Master Computer Science & Cyber Security</title>
     <style>
-        /* Dark Blue Theme & Styling */
+        /* Modern CSS Reset & Variables */
+        :root {
+            --primary-color: #00ffcc;
+            --secondary-color: #0a192f;
+            --text-color: #e6f1ff;
+            --accent-color: #f57dff;
+            --card-bg: rgba(17, 34, 64, 0.7);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,154 +22,372 @@
         }
 
         body {
-            background-color: #0a1128;
-            color: #e2e8f0;
-            line-height: 1.6;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            background: radial-gradient(circle at center, #112240 0%, #0a192f 100%);
         }
 
+        /* Animated Cyber Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* Navigation Bar */
         header {
-            background: linear-gradient(135deg, #001f54, #003459);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 3px solid #00a8cc;
-            box-shadow: 0 4px 20px rgba(0, 168, 204, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
         }
 
-        header h1 {
-            color: #00a8cc;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary-color);
         }
 
-        header p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .module-card {
-            background: #111e38;
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .module-card:hover {
-            transform: translateY(-5px);
-            border-color: #00a8cc;
-        }
-
-        .module-title {
-            color: #00a8cc;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 10px;
+        nav ul {
             display: flex;
-            align-items: center;
-        }
-
-        .chapter-list {
             list-style: none;
         }
 
-        .chapter-item {
-            background: #1c2d42;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #00a8cc;
-            transition: background 0.2s;
+        nav ul li {
+            margin-left: 30px;
         }
 
-        .chapter-item:hover {
-            background: #243b55;
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
         }
 
-        .chapter-item h3 {
-            color: #fff;
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section with 3D Effect */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            perspective: 1000px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            transform: translateZ(50px);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        }
+
+        .hero-content p {
             font-size: 1.2rem;
-            margin-bottom: 5px;
+            color: #8892b0;
+            margin-bottom: 30px;
         }
 
-        .chapter-item p {
-            color: #94a3b8;
+        /* Registration Form Card (3D Floating Effect) */
+        .auth-container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 255, 204, 0.1);
+            width: 400px;
+            transform: rotateY(-10deg) rotateX(10deg);
+            transition: 0.5s;
+        }
+
+        .auth-container:hover {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 50px rgba(245, 125, 255, 0.3);
+        }
+
+        .auth-container h2 {
+            margin-bottom: 25px;
+            text-align: center;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(10, 25, 47, 0.7);
+            border: 1px solid #233554;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        /* Dashboard / Roadmap Section (Hidden by default until registration) */
+        .dashboard {
+            display: none;
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #233554;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+        }
+
+        .card h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #8892b0;
             font-size: 0.95rem;
+            line-height: 1.6;
         }
 
-        .badge {
-            background-color: #00a8cc;
-            color: #0a1128;
-            padding: 3px 8px;
+        .tag {
+            display: inline-block;
+            background: rgba(0, 255, 204, 0.1);
+            color: var(--primary-color);
+            padding: 5px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
+            margin-top: 15px;
             font-weight: bold;
-            margin-left: 10px;
         }
 
+        /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
-            color: #64748b;
-            border-top: 1px solid #1e293b;
-            margin-top: 5px;
+            padding: 40px;
+            border-top: 1px solid #233554;
+            color: #8892b0;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
 
+    <canvas class="bg-animation" id="space"></canvas>
+
     <header>
-        <h1>Soumen Tech Universe</h1>
-        <p>Advanced Cyber Security & Multi-Layer Defense Training</p>
+        <div class="logo">Soumen Tech Universe</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#quizzes">Quizzes</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <div class="container">
-
-        <div class="module-card">
-            <div class="module-title">
-                Module 06: Multi-Layer Defensive & Offensive Security
-                <span class="badge">Security Core</span>
-            </div>
-            
-            <ul class="chapter-list">
-                <li class="chapter-item">
-                    <h3>Chapter 1: Advanced Reconnaissance & Intelligence Gathering</h3>
-                    <p>Information gathering methods, OSINT tactics, passive vs active scanning, and sub-domain enumeration techniques.</p>
-                </li>
-                <li class="chapter-item">
-                    <h3>Chapter 2: OWASP Top 10 Vulnerabilities & Exploitations</h3>
-                    <p>Deep dive into modern web vulnerabilities: SQLi, XSS, broken authentication, and security misconfigurations with mitigation labs.</p>
-                </li>
-                <li class="chapter-item">
-                    <h3>Chapter 3: Modern Cryptography & Key Management</h3>
-                    <p>Symmetric vs Asymmetric encryption algorithms, hashing functions (SHA-256/3), and secure management of cryptographic keys.</p>
-                </li>
-                <li class="chapter-item">
-                    <h3>Chapter 4: Privilege Escalation (Windows & Linux)</h3>
-                    <p>Techniques for elevating restricted access to administrative rights using misconfigured services, SUID binaries, and kernel exploits.</p>
-                </li>
-                <li class="chapter-item">
-                    <h3>Chapter 5: Zero-Trust Network Architecture Implementation</h3>
-                    <p>Designing modern enterprise security networks using identity verification, strict access controls, and network micro-segmentation.</p>
-                </li>
-            </ul>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Launch Your Career in <span>Cyber Security</span> & Coding</h1>
+            <p>From absolute scratch (What is a Computer?) to Advanced Exploit Development, Python, Java, C++, and Networking. Everything is 100% FREE.</p>
         </div>
 
-    </div>
+        <div class="auth-container" id="authBox">
+            <h2>Create Free Account</h2>
+            <form id="regForm" onsubmit="handleRegistration(event)">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phone" placeholder="Mobile Number" required>
+                </div>
+                <button type="submit" class="btn">Get Free Access</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="dashboard" id="roadmap">
+        <h2 class="section-title">Explore the <span>Tech Universe</span></h2>
+        <div class="grid">
+            
+            <div class="card">
+                <h3>1. Computer Basics & History</h3>
+                <p>Learn what a computer is, the history (Charles Babbage, Eniac), generations of computers, and core architecture.</p>
+                <span class="tag">Beginner</span>
+            </div>
+
+            <div class="card">
+                <h3>2. Advanced Networking</h3>
+                <p>Master OSI Models, TCP/IP, Subnetting, DNS, and HTTP protocols essential for Ethical Hacking.</p>
+                <span class="tag">Core Concept</span>
+            </div>
+
+            <div class="card">
+                <h3>3. Python for Security</h3>
+                <p>Learn Python from fundamentals to writing your own custom network scanners and exploit scripts.</p>
+                <span class="tag">Programming</span>
+            </div>
+
+            <div class="card">
+                <h3>4. Java Mastery</h3>
+                <p>Deep dive into Object-Oriented Programming (OOPs), secure coding practices, and backend concepts.</p>
+                <span class="tag">Programming</span>
+            </div>
+
+            <div class="card">
+                <h3>5. C++ & Systems</h3>
+                <p>Understand memory management, pointers, and low-level engineering required for malware analysis.</p>
+                <span class="tag">Advanced</span>
+            </div>
+
+            <div class="card">
+                <h3>6. Cyber Security Alpha</h3>
+                <p>Penetration Testing, Cryptography, Web Application Hacking, and Linux Privilege Escalation.</p>
+                <span class="tag">Expert Cyber</span>
+            </div>
+
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2026 Soumen Tech Universe. All Rights Reserved.</p>
+        <p>&copy; 2026 Soumen Tech Universe. Empowering Cyber Warriors Globally.</p>
     </footer>
 
+    <script>
+        // Simple Interaction to simulate Registration & Unlock Content
+        function handleRegistration(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            // In actual setup, you'll send this data to a database like Firebase.
+            alert(`Welcome ${name} to Soumen Tech Universe! Your free access has been activated.`);
+            
+            // Hide registration box and smooth scroll to the roadmap
+            document.getElementById('authBox').style.display = 'none';
+            const dashboard = document.getElementById('roadmap');
+            dashboard.style.display = 'block';
+            dashboard.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Optional: Canvas particles to give a 3D Cyber Space look
+        const canvas = document.getElementById('space');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let dots = [];
+        for(let i=0; i<100; i++) {
+            dots.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 2,
+                d: Math.random() * 5
+            });
+        }
+
+        function drawDots() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = '#00ffcc';
+            for(let i=0; i<dots.length; i++) {
+                let p = dots[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                ctx.fill();
+                p.y += Math.sin(p.d) * 0.5;
+                if(p.y > canvas.height) p.y = 0;
+            }
+        }
+        setInterval(drawDots, 30);
+    </script>
 </body>
 </html>
