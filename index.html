@@ -3,72 +3,349 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soumen Tech Universe - Cisco Style Academy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Soumen Tech Universe - Learn Coding & Cyber Security</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* CSS Variables for Dark Blue Theme */
         :root {
-            --bg-dark: #020617;
-            --bg-card: #0f172a;
-            --cisco-blue: #00bceb;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --accent-color: #64ffda;
+            --text-main: #e6f1ff;
+            --text-muted: #8892b0;
+            --card-bg: #1d3557;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        
-        header { text-align: center; padding: 40px 0; }
-        header h1 { font-family: 'Orbitron', sans-serif; color: var(--cisco-blue); font-size: 2.8rem; letter-spacing: 2px; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
-        .course-card { background: var(--bg-card); border-radius: 16px; border: 1px solid #1e293b; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; }
-        .course-card:hover { transform: translateY(-5px); border-color: var(--cisco-blue); box-shadow: 0 10px 30px rgba(0, 188, 235, 0.15); }
-        
-        .card-img { height: 180px; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--cisco-blue); }
-        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-body h3 { font-size: 1.4rem; margin-bottom: 12px; color: #fff; }
-        .card-body p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
-        
-        .btn { background: var(--cisco-blue); color: #020617; padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; text-decoration: none; text-align: center; margin-top: auto; transition: 0.2s; }
-        .btn:hover { background: #009ec7; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(10, 25, 47, 0.9);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section with Pseudo-3D Effect */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, #112240 0%, #0a192f 100%);
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 30px;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.4s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Registration Modal Section */
+        .registration-container {
+            padding: 80px 8%;
+            background-color: var(--bg-secondary);
+            display: flex;
+            justify-content: center;
+        }
+
+        .reg-form {
+            background-color: var(--bg-primary);
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .reg-form h2 {
+            margin-bottom: 25px;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--text-muted);
+            color: white;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* Course Tracks (Languages & Security) */
+        .tracks {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--text-main);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Quiz & Coin Section */
+        .quiz-preview {
+            background-color: var(--bg-secondary);
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .coin-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-primary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid gold;
+            color: gold;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        /* 3D Floating Animation Effect */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--bg-primary);
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+            color: var(--text-muted);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>SOUMEN TECH UNIVERSE</h1>
-            <p style="color: var(--text-muted); margin-top: 10px;">Advanced Cisco-Style Enterprise Learning Academy</p>
-        </header>
 
-        <div class="grid">
-            <div class="course-card">
-                <div class="card-img"><i class="fas fa-network-wired"></i></div>
-                <div class="card-body">
-                    <h3>Advanced Cisco Networking (CCNA)</h3>
-                    <p>OSI Architecture, Subnetting Math, Packet Switching, VLANs, OSPF Routing & Enterprise Labs with Packet Tracer.</p>
-                    <a href="networking.html" class="btn">Explore Academy Syllabus</a>
+    <nav>
+        <div class="logo">Soumen Tech Universe</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#quiz">Quizzes</a></li>
+            <li><a href="#register">Register</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Welcome to <br><span>Soumen Tech Universe</span></h1>
+        <p>Master Computer Basics, Advanced Networking, Java, Python, C++, and Cyber Security from Scratch. Absolutely Free!</p>
+        <a href="#register" class="btn">Get Started Now</a>
+    </section>
+
+    <section class="registration-container" id="register">
+        <div class="reg-form">
+            <h2>Create Free Account</h2>
+            <form id="authForm" onsubmit="handleRegister(event)">
+                <div class="input-group">
+                    <input type="text" placeholder="Full Name" required>
                 </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" placeholder="Mobile Number" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; background: transparent;">Register & Access Free</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="tracks" id="courses">
+        <h2 class="section-title">Our Learning Universe</h2>
+        <div class="grid-container">
+            <div class="card">
+                <i class="fas fa-desktop"></i>
+                <h3>Computer Basics</h3>
+                <p>History of computers, components, and fundamental concepts from the very beginning.</p>
             </div>
-
-            <div class="course-card">
-                <div class="card-img"><i class="fab fa-python"></i></div>
-                <div class="card-body">
-                    <h3>Python Pro: Automation & Data Architecture</h3>
-                    <p>From Object-Oriented Logic to advanced APIs, Memory structures, and AI Integration with detailed source documentation.</p>
-                    <a href="#" class="btn" style="background: #475569; cursor: not-allowed;">Coming Soon</a>
-                </div>
+            <div class="card">
+                <i class="fab fa-python"></i>
+                <h3>Python Programming</h3>
+                <p>Go from Basic syntax to Advanced scripts used in automation and Cyber Security.</p>
             </div>
-
-            <div class="course-card">
-                <div class="card-img"><i class="fas fa-user-secret"></i></div>
-                <div class="card-body">
-                    <h3>Ethical Hacking & Advanced Cyber Security</h3>
-                    <p>Perimeter Penetration Testing, Linux Architecture Exploits, Wireshark Packet Sniffing & Threat Mitigation Matrices.</p>
-                    <a href="#" class="btn" style="background: #475569; cursor: not-allowed;">Coming Soon</a>
-                </div>
+            <div class="card">
+                <i class="fab fa-java"></i>
+                <h3>Java & C++</h3>
+                <p>Deep dive into Object-Oriented Programming (OOP) with Java and C++.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Cyber Security</h3>
+                <p>Learn Networking, Ethical Hacking, and system security to protect the digital universe.</p>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section class="quiz-preview" id="quiz">
+        <div class="coin-status">
+            <i class="fas fa-coins"></i> Your Balance: <span id="coinCount">0</span> Coins
+        </div>
+        <h2 class="section-title" style="margin-top: 0;">Play Quizzes, Earn Coins!</h2>
+        <div class="reg-form" style="margin: 0 auto; background-color: var(--bg-primary);">
+            <p style="margin-bottom: 20px; color: var(--accent-color);">Quick Quiz Challenge:</p>
+            <h3 style="margin-bottom: 20px;">Which programming language is known as the backbone of Cyber Security scripting?</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn" onclick="checkAnswer(true)">A) Python</button>
+                <button class="btn" onclick="checkAnswer(false)">B) HTML</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Soumen Tech Universe. All Rights Reserved. Designed for Tech Learners.</p>
+    </footer>
+
+    <script>
+        let coins = 0;
+        let registered = false;
+
+        function handleRegister(event) {
+            event.preventDefault();
+            registered = true;
+            alert("Registration Successful! Welcome to Soumen Tech Universe. Enjoy 100% Free Access.");
+        }
+
+        function checkAnswer(isCorrect) {
+            if(!registered) {
+                alert("Please register first to play and earn coins!");
+                return;
+            }
+            if(isCorrect) {
+                coins += 10;
+                document.getElementById('coinCount').innerText = coins;
+                alert("Correct Answer! You earned 10 Coins. 🎉");
+            } else {
+                alert("Wrong Answer! Try again.");
+            }
+        }
+    </script>
 </body>
 </html>
