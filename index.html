@@ -3,391 +3,433 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soumen Tech Universe - Master Computer Science & Cyber Security</title>
+    <title>Soumen Tech Universe - Ultimate Learning Platform</title>
     <style>
-        /* Modern CSS Reset & Variables */
         :root {
-            --primary-color: #00ffcc;
-            --secondary-color: #0a192f;
-            --text-color: #e6f1ff;
-            --accent-color: #f57dff;
-            --card-bg: rgba(17, 34, 64, 0.7);
+            --bg-color: #030712;
+            --primary: #00f0ff;
+            --secondary: #ff007f;
+            --text: #f3f4f6;
+            --card-glow: rgba(0, 240, 255, 0.15);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
+            background-color: var(--bg-color);
+            color: var(--text);
             overflow-x: hidden;
-            background: radial-gradient(circle at center, #112240 0%, #0a192f 100%);
         }
 
-        /* Animated Cyber Background */
-        .bg-animation {
+        /* Neon Glow Background Effect */
+        .grid-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
             z-index: -1;
-            opacity: 0.1;
-            pointer-events: none;
         }
 
-        /* Navigation Bar */
+        /* Header */
         header {
+            padding: 25px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 8%;
-            background: rgba(10, 25, 47, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(3, 7, 18, 0.9);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            z-index: 100;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-transform: uppercase;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
             letter-spacing: 2px;
-            text-shadow: 0 0 10px var(--primary-color);
         }
 
-        nav ul {
+        /* Hero & Registration Section */
+        .hero {
+            padding: 60px 5%;
             display: flex;
-            list-style: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 85vh;
+            justify-content: center;
         }
 
-        nav ul li {
-            margin-left: 30px;
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        nav ul li a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
+        .hero h1 span {
+            color: var(--primary);
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            color: #9ca3af;
+            margin-bottom: 40px;
+        }
+
+        /* 3D Looking Form Card */
+        .reg-card {
+            background: rgba(17, 24, 39, 0.8);
+            border: 2px solid var(--secondary);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.2);
+            width: 100%;
+            max-width: 500px;
+            transition: transform 0.3s;
+        }
+
+        .reg-card:hover {
+            transform: scale(1.02) rotateX(2deg);
+        }
+
+        .reg-card h2 {
+            margin-bottom: 25px;
+            color: #fff;
+            font-size: 1.8rem;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .input-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+        }
+
+        .submit-btn:hover {
+            letter-spacing: 1px;
+            box-shadow: 0 0 25px var(--primary);
+        }
+
+        /* UNLOCKED CONTENT AREA (Initially Hidden via Display None) */
+        #universe-content {
+            display: none;
+            padding: 80px 5%;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .main-heading {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+            padding-bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
             position: relative;
         }
 
-        nav ul li a:hover {
-            color: var(--primary-color);
+        /* Course Big Content Layout */
+        .course-section {
+            margin-bottom: 100px;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px var(--card-glow);
         }
 
-        /* Hero Section with 3D Effect */
-        .hero {
-            min-height: 90vh;
+        .course-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 8%;
-            perspective: 1000px;
+            gap: 15px;
         }
 
-        .hero-content {
-            max-width: 600px;
-            transform: translateZ(50px);
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero-content h1 span {
-            color: var(--primary-color);
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #8892b0;
+        .course-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d1d5db;
             margin-bottom: 30px;
         }
 
-        /* Registration Form Card (3D Floating Effect) */
-        .auth-container {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 255, 204, 0.1);
-            width: 400px;
-            transform: rotateY(-10deg) rotateX(10deg);
-            transition: 0.5s;
-        }
-
-        .auth-container:hover {
-            transform: rotateY(0deg) rotateX(0deg) scale(1.02);
-            border-color: var(--accent-color);
-            box-shadow: 0 20px 50px rgba(245, 125, 255, 0.3);
-        }
-
-        .auth-container h2 {
-            margin-bottom: 25px;
-            text-align: center;
-            color: #ffffff;
-            letter-spacing: 1px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(10, 25, 47, 0.7);
-            border: 1px solid #233554;
-            border-radius: 5px;
-            color: white;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.4s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover {
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            box-shadow: 0 0 20px var(--primary-color);
-        }
-
-        /* Dashboard / Roadmap Section (Hidden by default until registration) */
-        .dashboard {
-            display: none;
-            padding: 60px 8%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: white;
-        }
-
-        .section-title span {
-            color: var(--primary-color);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #233554;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
-        }
-
-        .card h3 {
-            color: white;
-            margin-bottom: 15px;
-            font-size: 1.4rem;
-        }
-
-        .card p {
-            color: #8892b0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .tag {
-            display: inline-block;
-            background: rgba(0, 255, 204, 0.1);
-            color: var(--primary-color);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
+        /* Q&A Accordion Style */
+        .qa-box {
+            background: #111827;
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
             margin-top: 15px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .qa-box h4 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* Interactive Quiz Layout */
+        .quiz-container {
+            background: #1f2937;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 1px dashed var(--primary);
+        }
+
+        .quiz-option {
+            display: block;
+            background: #374151;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: var(--primary);
+            color: #000;
             font-weight: bold;
         }
 
-        /* Footer */
+        .quiz-btn {
+            background: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
         footer {
             text-align: center;
             padding: 40px;
-            border-top: 1px solid #233554;
-            color: #8892b0;
-            margin-top: 50px;
+            background: #030712;
+            border-top: 1px solid #1f2937;
+            color: #6b7280;
         }
     </style>
 </head>
 <body>
 
-    <canvas class="bg-animation" id="space"></canvas>
+    <div class="grid-bg"></div>
 
     <header>
-        <div class="logo">Soumen Tech Universe</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#quizzes">Quizzes</a></li>
-                <li><a href="#about">About</a></li>
-            </ul>
-        </nav>
+        <div class="logo">SOUMEN TECH UNIVERSE</div>
     </header>
 
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Launch Your Career in <span>Cyber Security</span> & Coding</h1>
-            <p>From absolute scratch (What is a Computer?) to Advanced Exploit Development, Python, Java, C++, and Networking. Everything is 100% FREE.</p>
-        </div>
-
-        <div class="auth-container" id="authBox">
-            <h2>Create Free Account</h2>
-            <form id="regForm" onsubmit="handleRegistration(event)">
-                <div class="input-group">
-                    <input type="text" id="username" placeholder="Full Name" required>
-                </div>
-                <div class="input-group">
-                    <input type="email" id="email" placeholder="Email Address" required>
-                </div>
-                <div class="input-group">
-                    <input type="tel" id="phone" placeholder="Mobile Number" required>
-                </div>
-                <button type="submit" class="btn">Get Free Access</button>
+    <section class="hero" id="hero-gate">
+        <h1>Welcome to the <span>Digital Cosmos</span></h1>
+        <p>Learn Computer Science Basics, Advanced Networking, Java, Python, C++, and Cyber Security Alpha level tactics. Enter your details to instantly unlock the massive free database.</p>
+        
+        <div class="reg-card">
+            <h2>Registration (Free Access)</h2>
+            <form onsubmit="unlockUniverse(event)">
+                <input type="text" class="input-box" placeholder="Your Full Name" required>
+                <input type="email" class="input-box" placeholder="Your Email Address" required>
+                <input type="tel" class="input-box" placeholder="Your Mobile Number" required>
+                <button type="submit" class="submit-btn">Unlock All Courses Now</button>
             </form>
         </div>
     </section>
 
-    <section class="dashboard" id="roadmap">
-        <h2 class="section-title">Explore the <span>Tech Universe</span></h2>
-        <div class="grid">
+    <main id="universe-content">
+        <h2 class="main-heading">The Master Tech Roadmap</h2>
+
+        <div class="course-section">
+            <h3 class="course-title">01. Computer Architecture & History</h3>
+            <p class="course-desc">
+                A computer is an advanced electronic device that takes raw data as input from the user and processes it under the control of a set of instructions (called program), gives a result (output), and saves it for future use. The history of computers dates back to the invention of the Abacus, but the actual revolution started with Charles Babbage's Analytical Engine in 1837. Later, generations shifted from Vacuum Tubes to Transistors, Integrated Circuits (ICs), Microprocessors, and now Artificial Intelligence.
+            </p>
             
-            <div class="card">
-                <h3>1. Computer Basics & History</h3>
-                <p>Learn what a computer is, the history (Charles Babbage, Eniac), generations of computers, and core architecture.</p>
-                <span class="tag">Beginner</span>
+            <div class="qa-box">
+                <h4>Q: Who is known as the father of modern computers?</h4>
+                <p>A: Charles Babbage designed the first mechanical computer, while Alan Turing is credited as the father of theoretical modern computer science.</p>
             </div>
 
-            <div class="card">
-                <h3>2. Advanced Networking</h3>
-                <p>Master OSI Models, TCP/IP, Subnetting, DNS, and HTTP protocols essential for Ethical Hacking.</p>
-                <span class="tag">Core Concept</span>
+            <div class="quiz-container">
+                <h4>Quiz: What was the main electronic component used in First Generation Computers?</h4>
+                <label class="quiz-option"><input type="radio" name="q1" value="wrong"> Transistors</label>
+                <label class="quiz-option"><input type="radio" name="q1" value="correct"> Vacuum Tubes</label>
+                <label class="quiz-option"><input type="radio" name="q1" value="wrong"> Integrated Circuits</label>
+                <button class="quiz-btn" onclick="checkAnswer('q1')">Verify Answer</button>
             </div>
-
-            <div class="card">
-                <h3>3. Python for Security</h3>
-                <p>Learn Python from fundamentals to writing your own custom network scanners and exploit scripts.</p>
-                <span class="tag">Programming</span>
-            </div>
-
-            <div class="card">
-                <h3>4. Java Mastery</h3>
-                <p>Deep dive into Object-Oriented Programming (OOPs), secure coding practices, and backend concepts.</p>
-                <span class="tag">Programming</span>
-            </div>
-
-            <div class="card">
-                <h3>5. C++ & Systems</h3>
-                <p>Understand memory management, pointers, and low-level engineering required for malware analysis.</p>
-                <span class="tag">Advanced</span>
-            </div>
-
-            <div class="card">
-                <h3>6. Cyber Security Alpha</h3>
-                <p>Penetration Testing, Cryptography, Web Application Hacking, and Linux Privilege Escalation.</p>
-                <span class="tag">Expert Cyber</span>
-            </div>
-
         </div>
-    </section>
+
+        <div class="course-section">
+            <h3 class="course-title">02. Advanced Networking & Protocols</h3>
+            <p class="course-desc">
+                Networking is the backbone of Cyber Security. Without understanding how data moves across routers, switches, and firewalls, defense or offense is impossible. This core segment focuses on the OSI Model (7 Layers: Physical, Data Link, Network, Transport, Session, Presentation, Application), TCP/IP protocols, IP Addressing (IPv4/IPv6), Subnetting, DNS resolution, and packet structures using Wireshark tools.
+            </p>
+
+            <div class="qa-box">
+                <h4>Q: What is the primary difference between TCP and UDP?</h4>
+                <p>A: TCP (Transmission Control Protocol) is connection-oriented and guarantees data delivery, whereas UDP (User Datagram Protocol) is connectionless, faster, but does not guarantee delivery.</p>
+            </div>
+
+            <div class="quiz-container">
+                <h4>Quiz: Which OSI layer handles routing and logical IP addressing?</h4>
+                <label class="quiz-option"><input type="radio" name="q2" value="wrong"> Data Link Layer</label>
+                <label class="quiz-option"><input type="radio" name="q2" value="correct"> Network Layer</label>
+                <label class="quiz-option"><input type="radio" name="q2" value="wrong"> Transport Layer</label>
+                <button class="quiz-btn" onclick="checkAnswer('q2')">Verify Answer</button>
+            </div>
+        </div>
+
+        <div class="course-section">
+            <h3 class="course-title">03. Python for Security Automation</h3>
+            <p class="course-desc">
+                Python is the number one language for cybersecurity professionals. Because of its massive library support (like Socket, Scapy, Requests), hackers and security analysts use it to automate exploits, build custom port scanners, scrape target intelligence, and analyze malware logs efficiently.
+            </p>
+
+            <div class="qa-box">
+                <h4>Q: Why is Python preferred over other languages for initial script writing in hacking?</h4>
+                <p>A: Python has clean syntax, requires fewer lines of code, and allows fast prototype building without needing manually-managed compiling stages.</p>
+            </div>
+
+            <div class="quiz-container">
+                <h4>Quiz: Which Python library is heavily used for packet manipulation and sniffing?</h4>
+                <label class="quiz-option"><input type="radio" name="q3" value="correct"> Scapy</label>
+                <label class="quiz-option"><input type="radio" name="q3" value="wrong"> Beautiful Soup</label>
+                <label class="quiz-option"><input type="radio" name="q3" value="wrong"> PyGame</label>
+                <button class="quiz-btn" onclick="checkAnswer('q3')">Verify Answer</button>
+            </div>
+        </div>
+
+        <div class="course-section">
+            <h3 class="course-title">04. Java & Secure Application Design</h3>
+            <p class="course-desc">
+                Java powers billions of enterprise web applications and Android operating systems. Understanding Object-Oriented Programming (OOP) concepts such as Inheritance, Polymorphism, Encapsulation, and Abstraction in Java is vital to audit enterprise software codebases and find flaws like deserialization vulnerabilities.
+            </p>
+
+            <div class="quiz-container">
+                <h4>Quiz: Which concept allows a single method to perform different behaviors?</h4>
+                <label class="quiz-option"><input type="radio" name="q4" value="wrong"> Encapsulation</label>
+                <label class="quiz-option"><input type="radio" name="q4" value="correct"> Polymorphism</label>
+                <label class="quiz-option"><input type="radio" name="q4" value="wrong"> Inheritance</label>
+                <button class="quiz-btn" onclick="checkAnswer('q4')">Verify Answer</button>
+            </div>
+        </div>
+
+        <div class="course-section">
+            <h3 class="course-title">05. C++ & Low-Level Memory Reverse Engineering</h3>
+            <p class="course-desc">
+                C++ provides direct low-level control over memory allocation and system resources via hardware pointers. Cyber security specialists must master C++ to perform reverse engineering on malware, execute buffer overflow attacks, and create zero-day defenses by understanding runtime memory architecture.
+            </p>
+
+            <div class="quiz-container">
+                <h4>Quiz: What variable type holds the direct memory address of another variable in C++?</h4>
+                <label class="quiz-option"><input type="radio" name="q5" value="wrong"> Integer Reference</label>
+                <label class="quiz-option"><input type="radio" name="q5" value="correct"> Pointer</label>
+                <label class="quiz-option"><input type="radio" name="q5" value="wrong"> Vector Array</label>
+                <button class="quiz-btn" onclick="checkAnswer('q5')">Verify Answer</button>
+            </div>
+        </div>
+
+        <div class="course-section">
+            <h3 class="course-title">06. Cyber Security Alpha & Pen-Testing</h3>
+            <p class="course-desc">
+                The ultimate frontier. Here you merge your networking knowledge and coding skills to perform Penetration Testing, Ethical Hacking, Web App Defending (OWASP Top 10 like SQL Injection, XSS), Privilege Escalation, and Digital Forensics Analysis.
+            </p>
+
+            <div class="qa-box">
+                <h4>Q: What is the main objective of SQL Injection?</h4>
+                <p>A: SQL Injection allows attackers to bypass login interfaces and manipulate backend databases to extract confidential user credentials.</p>
+            </div>
+        </div>
+
+    </main>
 
     <footer>
-        <p>&copy; 2026 Soumen Tech Universe. Empowering Cyber Warriors Globally.</p>
+        <p>&copy; 2026 Soumen Tech Universe. Developed for GitHub Open-Source Learning.</p>
     </footer>
 
     <script>
-        // Simple Interaction to simulate Registration & Unlock Content
-        function handleRegistration(e) {
-            e.preventDefault();
+        // Form Processing and Instant Content Unlock Logic
+        function unlockUniverse(event) {
+            event.preventDefault(); // Prevents page from refreshing and losing state
             
-            const name = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-
-            // In actual setup, you'll send this data to a database like Firebase.
-            alert(`Welcome ${name} to Soumen Tech Universe! Your free access has been activated.`);
+            // Instantly hide the gatekeeping section smoothly
+            document.getElementById('hero-gate').style.display = 'none';
             
-            // Hide registration box and smooth scroll to the roadmap
-            document.getElementById('authBox').style.display = 'none';
-            const dashboard = document.getElementById('roadmap');
-            dashboard.style.display = 'block';
-            dashboard.scrollIntoView({ behavior: 'smooth' });
+            // Instantly make the vast content universe block visible
+            const mainContent = document.getElementById('universe-content');
+            mainContent.style.display = 'block';
+            
+            // Pop up confirmation
+            alert("SUCCESS! Access Granted. Welcome to Soumen Tech Universe.");
+            
+            // Scroll to content automatically
+            mainContent.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Optional: Canvas particles to give a 3D Cyber Space look
-        const canvas = document.getElementById('space');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Quiz Evaluation Engine
+        function checkAnswer(quizName) {
+            const options = document.getElementsByName(quizName);
+            let selectedValue = "";
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedValue = options[i].value;
+                    break;
+                }
+            }
 
-        let dots = [];
-        for(let i=0; i<100; i++) {
-            dots.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 2,
-                d: Math.random() * 5
-            });
-        }
-
-        function drawDots() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = '#00ffcc';
-            for(let i=0; i<dots.length; i++) {
-                let p = dots[i];
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-                ctx.fill();
-                p.y += Math.sin(p.d) * 0.5;
-                if(p.y > canvas.height) p.y = 0;
+            if(selectedValue === "") {
+                alert("Please select an option before verifying.");
+            } else if (selectedValue === "correct") {
+                alert("🎯 Excellent! Correct Answer.");
+            } else {
+                alert("❌ Incorrect. Try reading the description text above and try again!");
             }
         }
-        setInterval(drawDots, 30);
     </script>
 </body>
 </html>
