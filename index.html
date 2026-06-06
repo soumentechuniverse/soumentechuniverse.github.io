@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOUMEN_TECH_UNIVERSE | Premium Online Tech Academy</title>
+    <!-- FontAwesome for Premium Cyber Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -68,7 +69,6 @@
         }
         .course-card:hover { border-color: var(--neon-cyan); transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 242, 254, 0.2); }
        
-        /* Interactive Cyber Picture Frame */
         .visual-frame { width: 100%; height: 180px; background: linear-gradient(135deg, #051124, #0a1b35); border-radius: 8px; margin-bottom: 25px; display: flex; justify-content: center; align-items: center; border: 1px dashed rgba(0,242,254,0.3); position: relative; }
         .matrix-bg-text { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0.15; font-size: 0.65rem; color: var(--neon-green); padding: 10px; overflow: hidden; pointer-events: none; }
         .icon-box { font-size: 4rem; color: var(--neon-blue); filter: drop-shadow(0 0 12px var(--neon-blue)); z-index: 2; }
@@ -76,30 +76,52 @@
         .course-card h3 { font-size: 1.6rem; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
         .course-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; text-align: justify; }
        
-        /* Syllabus bullet points description */
         .syllabus-list { list-style: none; margin-bottom: 25px; }
         .syllabus-list li { font-size: 0.9rem; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
         .syllabus-list li i { color: var(--neon-cyan); font-size: 0.75rem; }
 
-        /* Hacker Interactive Code Strip */
         .terminal-strip { background: #040d1a; padding: 12px; border-radius: 6px; font-size: 0.8rem; color: var(--neon-green); border-left: 3px solid var(--neon-green); margin-bottom: 25px; overflow-x: auto; }
 
-        /* Premium Action Entry Button */
         .enroll-btn {
             background: transparent; border: 1px solid var(--neon-cyan);
             color: var(--neon-cyan); padding: 14px; border-radius: 8px;
             cursor: pointer; font-weight: bold; font-size: 1rem; text-transform: uppercase;
             letter-spacing: 2px; transition: all 0.3s; width: 100%; text-align: center; margin-top: auto;
         }
-        .enroll-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 20px var(--neon-cyan); font-weight: bold; }
+        .enroll-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 20px var(--neon-cyan); }
+
+        /* --- 5. INTERACTIVE COURSE PANEL (MODAL WINDOW) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(8px);
+            z-index: 20000; display: none; justify-content: center; align-items: center;
+        }
+        .modal-panel {
+            background: var(--bg-card); border: 2px solid var(--neon-cyan);
+            border-radius: 16px; width: 90%; max-width: 700px; padding: 40px;
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.3);
+            position: relative; animation: panelSpawn 0.4s ease-out;
+            max-height: 85vh; overflow-y: auto;
+        }
+        @keyframes panelSpawn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+       
+        .close-panel-btn {
+            position: absolute; top: 20px; right: 20px; background: transparent;
+            border: none; color: var(--neon-red); font-size: 1.5rem; cursor: pointer;
+        }
+        .modal-panel h2 { color: #fff; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .modal-panel h4 { color: var(--neon-cyan); margin-top: 20px; margin-bottom: 10px; }
+        .modal-panel p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+       
+        .lesson-list { list-style: none; padding-left: 5px; }
+        .lesson-list li { padding: 12px; background: rgba(255,255,255,0.02); margin-bottom: 8px; border-left: 3px solid var(--neon-blue); font-size: 0.9rem; display: flex; justify-content: space-between; }
+        .lesson-list li span { color: var(--neon-green); }
 
         footer { text-align: center; padding: 40px; border-top: 1px solid rgba(0, 242, 254, 0.1); background-color: #01040a; color: var(--text-muted); font-size: 0.95rem; }
 
-        /* ANIMATIONS */
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink { from { border-color: transparent } to { border-color: var(--neon-green); } }
 
-        /* --- MOBILE ADAPTABILITY --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.3rem; }
             header { flex-direction: column; gap: 15px; }
@@ -110,6 +132,7 @@
 </head>
 <body>
 
+    <!-- ================= 1. HACKER SYSTEM OVERLAY PRELOADER ================= -->
     <div id="intro-overlay">
         <div class="intro-content">
             <i class="fa-solid fa-terminal" style="font-size: 3.5rem; color: var(--neon-cyan); margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--neon-cyan));"></i>
@@ -120,6 +143,7 @@
         </div>
     </div>
 
+    <!-- ================= 2. ACADEMY HEADER NAVIGATION ================= -->
     <header>
         <a href="#" class="logo"><i class="fa-solid fa-server"></i> SOUMEN_TECH_UNIVERSE</a>
         <nav>
@@ -129,6 +153,7 @@
         </nav>
     </header>
 
+    <!-- ================= 3. HERO ARCHITECTURE ================= -->
     <section class="hero">
         <div class="cyber-badge">Security Status: Encrypted</div>
         <h1>EXPLORE THE COMPUTING COSMOS</h1>
@@ -137,9 +162,11 @@
 
     <div class="container">
        
+        <!-- SECTION 1: COMPUTER FUNDAMENTALS -->
         <h2 id="architecture" class="section-title">01. Computer Architecture & Advanced Fundamentals</h2>
         <div class="course-grid">
            
+            <!-- Card 1: Hardware Core -->
             <div class="course-card">
                 <div>
                     <div class="visual-frame">
@@ -151,13 +178,13 @@
                     <ul class="syllabus-list">
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>ALU Pipelines:</strong> Fetch-Decode-Execute mechanics.</li>
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Register Grid:</strong> Accumulators and Program Counters.</li>
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Logic Synthesis:</strong> Building logic blocks via NAND/NOR gates.</li>
                     </ul>
                 </div>
                 <div class="terminal-strip">SYS_EXEC // CPU_CORE_LOAD_OK</div>
-                <button class="enroll-btn" onclick="alert('Entering Processor Architecture Course Panel...')">Enroll In Course</button>
+                <button class="enroll-btn" onclick="openCoursePanel('hardware')">Enroll In Course</button>
             </div>
 
+            <!-- Card 2: Operating Systems Kernel -->
             <div class="course-card">
                 <div>
                     <div class="visual-frame">
@@ -169,18 +196,19 @@
                     <ul class="syllabus-list">
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Virtual Memory:</strong> Paging tables and page faults algorithms.</li>
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Process Allocation:</strong> Mutex, deadlocks, and thread pools.</li>
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Kernel Types:</strong> Comparing Monolithic vs Microkernel layouts.</li>
                     </ul>
                 </div>
                 <div class="terminal-strip">sudo sysctl -w vm.drop_caches=3</div>
-                <button class="enroll-btn" onclick="alert('Loading Kernel Core Course Terminal...')">Enroll In Course</button>
+                <button class="enroll-btn" onclick="openCoursePanel('kernel')">Enroll In Course</button>
             </div>
 
         </div>
 
+        <!-- SECTION 2: NETWORKING & SECURITY -->
         <h2 id="networking" class="section-title">02. Advanced Networking & Cyber Security</h2>
         <div class="course-grid">
            
+            <!-- Card 3: OSI & Networks -->
             <div class="course-card">
                 <div>
                     <div class="visual-frame">
@@ -192,13 +220,13 @@
                     <ul class="syllabus-list">
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>7 Layers of OSI:</strong> Detailed mapping from bits to app displays.</li>
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Transport Stream:</strong> Flow controls of TCP vs speed of UDP.</li>
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Routing Standards:</strong> Peering schemas across BGP and subnets.</li>
                     </ul>
                 </div>
                 <div class="terminal-strip">TCP_HANDSHAKE // SYN -> SYN-ACK -> ACK</div>
-                <button class="enroll-btn" onclick="alert('Connecting to Network Infrastructure Lab...')">Enroll In Course</button>
+                <button class="enroll-btn" onclick="openCoursePanel('networking_panel')">Enroll In Course</button>
             </div>
 
+            <!-- Card 4: Cyber Offense & Defense -->
             <div class="course-card">
                 <div>
                     <div class="visual-frame" style="border-color: rgba(255,0,85,0.3);">
@@ -210,74 +238,118 @@
                     <ul class="syllabus-list">
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Encryption Systems:</strong> Asymmetric RSA and symmetric AES blocks.</li>
                         <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Traffic Audits:</strong> Comprehensive packet interception using Wireshark.</li>
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Hardening Cells:</strong> Building firewalls, Honeypots, and DMZ grids.</li>
                     </ul>
                 </div>
                 <div class="terminal-strip">nmap -sV -sC -T4 192.168.1.1</div>
-                <button class="enroll-btn" onclick="alert('Booting Cyber Security Defense Interface...')">Enroll In Course</button>
+                <button class="enroll-btn" onclick="openCoursePanel('cyber')">Enroll In Course</button>
             </div>
 
         </div>
+    </div>
 
-        <h2 id="programming" class="section-title">03. High-Performance Language Polyglot Matrix</h2>
-        <div class="course-grid">
+    <!-- ================= 5. DYNAMIC COURSE MODAL PANEL ================= -->
+    <div class="modal-overlay" id="courseModal">
+        <div class="modal-panel">
+            <button class="close-panel-btn" onclick="closeCoursePanel()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 id="modalTitle">Course Title</h2>
+            <p id="modalDesc">Course description goes here.</p>
            
-            <div class="course-card">
-                <div>
-                    <div class="visual-frame">
-                        <div class="matrix-bg-text">MALLOC_BLOCK=4096B<br>PTR_ADDR=0x7fff5fb<br>OPTIMIZE_O3=TRUE</div>
-                        <div class="icon-box" style="color: #4af7a7;"><i class="fa-solid fa-code"></i></div>
-                    </div>
-                    <h3>C & C++ Machine Systems</h3>
-                    <p>The core standard choice for low latency execution speed and bare metal resource optimization control rules.</p>
-                    <ul class="syllabus-list">
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Pointers:</strong> Direct RAM address math and memory indexing.</li>
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Manual Bounds:</strong> Allocating dynamic structures via <code>malloc</code>.</li>
-                    </ul>
-                </div>
-                <div class="terminal-strip">int *ptr = malloc(sizeof(int) * 256);</div>
-                <button class="enroll-btn" onclick="alert('Compiling C++ Project Space...')">Enroll In Course</button>
-            </div>
-
-            <div class="premium-card course-card">
-                <div>
-                    <div class="visual-frame">
-                        <div class="matrix-bg-text">TENSOR_SHAPE=[64,64]<br>EPOCH_LOSS=0.01<br>SCRAPE_POOL=ACTIVE</div>
-                        <div class="icon-box" style="color: #ffd43b;"><i class="fa-brands fa-python"></i></div>
-                    </div>
-                    <h3>Python Automation & Data Systems</h3>
-                    <p>The industry gold standard for constructing background system automation scripts, web miners, and artificial neural networks.</p>
-                    <ul class="syllabus-list">
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Scripting Blocks:</strong> Multi-threaded rapid request mining grids.</li>
-                        <li><i class="fa-solid fa-circle-chevron-right"></i> <strong>Neural Layouts:</strong> Training predictive analytical data dataframes.</li>
-                    </ul>
-                </div>
-                <div class="terminal-strip">import sys; print([x for x in sys.path])</div>
-                <button class="enroll-btn" onclick="alert('Spawning Python Automation Kernel...')">Enroll In Course</button>
-            </div>
-
+            <h4><i class="fa-solid fa-book-open"></i> Academy Syllabus Modules:</h4>
+            <ul class="lesson-list" id="modalLessons">
+                <!-- JavaScript will auto populate modules here -->
+            </ul>
         </div>
-
     </div>
 
     <footer>
         <p>&copy; 2026 SOUMEN_TECH_UNIVERSE ACADEMY | SECURITY CORE PROTOCOL: ENCRYPTED</p>
     </footer>
 
+    <!-- ================= 6. SYSTEM DYNAMIC PANEL LOGIC ================= -->
     <script>
-        // Smoothly dismiss the system entry gate on click
+        // Dismiss preloader entry gate
         function openUniverse() {
             const overlay = document.getElementById('intro-overlay');
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
-                document.body.style.overflowY = 'auto'; // Re-enable window scrolling
+                document.body.style.overflowY = 'auto';
             }, 800);
         }
 
-        // Keep document scrolling locked upon initial setup
         window.onload = function() {
             document.body.style.overflowY = 'hidden';
+        }
+
+        // DATABASE FOR LIVE COURSES ENTER PANEL
+        const courseData = {
+            hardware: {
+                title: "Processor Mechanics & Hardware Logic",
+                desc: "Welcome to the Live Terminal. This specialized dashboard will teach you exactly how billions of logic structures operate on computer silicon wafers.",
+                lessons: [
+                    "Introduction to Microarchitecture <span>[Available]</span>",
+                    "Building NAND, AND, OR Logic Arrays <span>[Available]</span>",
+                    "CPU registers (EAX, EBX, ESP) Control Maps <span>[Locked - Enroll to Access]</span>",
+                    "The Fetch-Decode-Execute Execution Core <span>[Locked - Enroll to Access]</span>"
+                ]
+            },
+            kernel: {
+                title: "Operating Systems & Kernel Management",
+                desc: "Enter the Kernel Space. Learn how systems coordinate device input/output operations and protect running memory maps from execution crashes.",
+                lessons: [
+                    "Monolithic Kernels vs Microkernels Architecture <span>[Available]</span>",
+                    "Virtual Memory Management & Page Tables <span>[Available]</span>",
+                    "Thread Schedulers and Mutex Deadlock Avoidance <span>[Locked]</span>",
+                    "File Allocation Tables & ext4 Low-Level Streams <span>[Locked]</span>"
+                ]
+            },
+            networking_panel: {
+                title: "The OSI Framework & Network Stack",
+                desc: "Establish secure global node endpoints. Analyze real-time routing maps and state control frameworks.",
+                lessons: [
+                    "Deep Walkthrough of 7 Layers of OSI <span>[Available]</span>",
+                    "TCP 3-Way Handshaking Protocol Engineering <span>[Available]</span>",
+                    "IP Subnet Addressing & CIDR Vector Maps <span>[Locked]</span>",
+                    "Border Gateway Protocol (BGP) Peering Setups <span>[Locked]</span>"
+                ]
+            },
+            cyber: {
+                title: "Cyber Security Defense & Cryptography",
+                desc: "Welcome to the Security Operations Center. Here you learn strict defensive patterns to isolate network spaces against advanced intrusions.",
+                lessons: [
+                    "Symmetric (AES-256) vs Asymmetric (RSA) Infrastructure <span>[Available]</span>",
+                    "Wireshark Promiscuous Mode Packet Sniffing <span>[Available]</span>",
+                    "Writing Firewall IPtables Rules and Dropping Payloads <span>[Locked]</span>",
+                    "Isolating Networks via Enterprise DMZ Structures <span>[Locked]</span>"
+                ]
+            }
+        };
+
+        // Open Dynamic Course Panel Modals
+        function openCoursePanel(courseKey) {
+            const data = courseData[courseKey];
+            if(!data) return;
+
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalDesc').innerText = data.desc;
+           
+            const listContainer = document.getElementById('modalLessons');
+            listContainer.innerHTML = ""; // Clear existing
+
+            data.lessons.forEach(lesson => {
+                const li = document.createElement('li');
+                li.innerHTML = lesson;
+                listContainer.appendChild(li);
+            });
+
+            document.getElementById('courseModal').style.display = "flex";
+            document.body.style.overflow = "hidden"; // Stop background scroll
+        }
+
+        // Close Panel Modal
+        function closeCoursePanel() {
+            document.getElementById('courseModal').style.display = "none";
+            document.body.style.overflow = "auto"; // Restore scroll
         }
     </script>
 </body>
